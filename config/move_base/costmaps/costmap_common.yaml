@@ -23,11 +23,11 @@ obstacle_layer:
   footprint_clearing_enabled: true
   combination_method: 1
 
-  observation_sources: scan
+  observation_sources: laser
 
 
-  scan:
-    sensor_frame: laser
+  laser:
+    # sensor_frame: laser
     data_type: LaserScan
     # topic: /robot1/scan
     clearing: true
