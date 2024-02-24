@@ -7,14 +7,7 @@ from smach_ros import SimpleActionState
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 import math
 import tf
-import rospkg #import RosPack as rp
-
-
-
-# waypoints = [
-#     ['one', (2.1, 2.2), (0.0, 0.0, 5.2193522453308105,-0.1537688)],
-#     ['two', (6.5, 4.43), (0.0, 0.0, 5.393279075622559,-0.12403528392314911)]
-# ]
+import rospkg 
 
 
 def read_waypoints(file_path):
@@ -38,7 +31,7 @@ if __name__ == '__main__':
     route = rospy.get_param(robot_ns_path + 'route')
 
     rp = rospkg.RosPack()
-    package_path = rp.get_path('leo_navigation')
+    package_path = rp.get_path('multi_sim')
     CSV_path = (package_path + "/waypoints/" + route)
 
     waypoints = read_waypoints(CSV_path)

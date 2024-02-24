@@ -4,6 +4,7 @@
 
   <group ns="$(arg robot_ns)">
 
+    <include file="$(find multi_sim)/launch/navigation/twist_mux.launch" />
 
     <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">
         <rosparam command="load" ns="global_costmap" file="$(find multi_sim)/config/move_base/costmaps/costmap_common.yaml"/>

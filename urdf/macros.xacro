@@ -8,7 +8,7 @@
                        link_prefix:=''
                        joint_prefix:=''
                        imu_translation:='0.0628 -0.0314 -0.0393'
-                       mecanum_wheels:=false">
+                       mecanum_wheels:=true">
 
     <xacro:macro name="rocker_link" params="name">
       <link name="${link_prefix}rocker_${name}_link">
