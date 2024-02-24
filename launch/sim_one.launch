@@ -16,9 +16,13 @@
     <arg name="initial_pose_x" default="0.0"/>
     <arg name="initial_pose_y" default="0.0"/>
     <arg name="initial_pose_a" default="0.0"/>
+
+    <param name="use_sim_time" value="true"/>
+
+    <arg name="map_file" default="$(find multi_sim)/maps/BIGMAP.yaml"/>
+
   
 
-    <!-- <arg name="map_file" default="$(find multi_sim)/maps/BIGMAP.yaml"/> -->
     
 
     <group ns="$(arg robot_ns)">
@@ -30,10 +34,7 @@
         <param name="odom_frame_id" value="$(arg robot_ns)/odom"/>
         <param name="base_frame_id" value="$(arg robot_ns)/base_footprint"/>
 
-        <!-- <node name="map_server"
-          pkg="map_server"
-          type="map_server"
-          args="$(arg map_file)"/> -->
+        
 
 
         <node name="controller_spawner"
@@ -51,12 +52,11 @@
                 type="relay"
                 args="cmd_vel controllers/diff_drive/cmd_vel" />
         
-        <node name="odom_relay"
+        <!-- <node name="odom_relay"
                 pkg="topic_tools"
                 type="relay"
-                args="controllers/diff_drive/odom geometry_msgs/Twist" />
-        
-        
+                args="controllers/diff_drive/odom nav_msgs/Odometry" /> -->
+     
 
         <node name="urdf_spawner"
                 pkg="gazebo_ros"
@@ -71,9 +71,21 @@
         <include file="$(find multi_sim)/launch/navigation/odometry.launch">
             <arg name="robot_ns" value="$(arg robot_ns)" />
         </include>
+            
 
+        <node name="map_server"
+            pkg="map_server"
+            type="map_server"
+            args="$(arg map_file)">
+            <param name="frame_id" value="map"/>
+        </node>
+
+        <node pkg="tf2_ros" type="static_transform_publisher" name="base_to_map_broadcaster" args="0 0 0 0 0 0 map $(arg robot_ns)/base_footprint"/>
+
+    
+    
         
-        <!-- <node name="amcl"
+        <node name="amcl"
                 pkg="amcl"
                 type="amcl"
                 clear_params="true">
@@ -87,9 +99,11 @@
       
       
             <remap from="map" to="/map" /> 
-        </node> -->
+        </node>
 
-        <!-- <include file="$(find amcl)/examples/amcl_diff.launch"/> -->
+        <include file="$(find multi_sim)/launch/navigation/navigation.launch">
+            <arg name="robot_ns" value="$(arg robot_ns)" />
+        </include>
 
         
     </group>

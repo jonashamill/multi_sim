@@ -6,12 +6,12 @@
 
 
     <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">
-        <rosparam command="load" ns="global_costmap" file="$(find leo_navigation)/config/move_base/costmaps/costmap_common.yaml"/>
-        <rosparam command="load" ns="local_costmap" file="$(find leo_navigation)/config/move_base/costmaps/costmap_common.yaml"/>
-        <rosparam command="load" file="$(find leo_navigation)/config/move_base/costmaps/local_costmap.yaml"/>
-        <rosparam command="load" file="$(find leo_navigation)/config/move_base/costmaps/global_costmap.yaml"/>
-        <rosparam command="load" file="$(find leo_navigation)/config/move_base/planners/local_planner.yaml"/>
-        <rosparam command="load" file="$(find leo_navigation)/config/move_base/planners/global_planner.yaml"/>
+        <rosparam command="load" ns="global_costmap" file="$(find multi_sim)/config/move_base/costmaps/costmap_common.yaml"/>
+        <rosparam command="load" ns="local_costmap" file="$(find multi_sim)/config/move_base/costmaps/costmap_common.yaml"/>
+        <rosparam command="load" file="$(find multi_sim)/config/move_base/costmaps/local_costmap.yaml"/>
+        <rosparam command="load" file="$(find multi_sim)/config/move_base/costmaps/global_costmap.yaml"/>
+        <rosparam command="load" file="$(find multi_sim)/config/move_base/planners/local_planner.yaml"/>
+        <rosparam command="load" file="$(find multi_sim)/config/move_base/planners/global_planner.yaml"/>
 
         <param name="global_costmap/robot_base_frame" value="$(arg robot_ns)/base_footprint"/>
         <param name="local_costmap/global_frame" value="$(arg robot_ns)/odom" />

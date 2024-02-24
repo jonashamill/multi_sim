@@ -49,5 +49,5 @@ odom_alpha4: 0.2
 # TF parameters
 # odom_frame_id: "$(arg robot_ns)/odom"
 # base_frame_id: "$(arg robot_ns)/base_footprint"
-global_frame_id: /map 
+global_frame_id: map 
 tf_broadcast: true

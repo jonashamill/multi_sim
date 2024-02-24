@@ -1,5 +1,5 @@
 <launch>
-    <arg name="map_file" default="$(find multi_sim)/maps/BIGMAP.yaml"/>
+    <!-- <arg name="map_file" default="$(find multi_sim)/maps/BIGMAP.yaml"/> -->
     <arg name="robot_ns" default="robot1" />
   
     <arg name="initial_pose_x" default="0.0"/>
@@ -8,11 +8,11 @@
   
     <group ns="$(arg robot_ns)">
     
-      <node name="map_server"
+      <!-- <node name="map_server"
             pkg="map_server"
             type="map_server"
             args="$(arg map_file)"/>
-  
+   -->
       <node name="amcl"
             pkg="amcl"
             type="amcl"

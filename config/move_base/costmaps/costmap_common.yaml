@@ -27,7 +27,7 @@ obstacle_layer:
 
 
   scan:
-    sensor_frame: hokuyo_laser_frame
+    sensor_frame: hokuyo_laser
     data_type: LaserScan
     # topic: /robot1/scan
     clearing: true
