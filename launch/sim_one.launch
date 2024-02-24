@@ -12,6 +12,9 @@
     <arg name="R" default="0.0" />
     <arg name="P" default="0.0" />
     <arg name="Y" default="0.0" />
+    <arg name="initial_pose_x" default="0.0"/>
+    <arg name="initial_pose_y" default="0.0"/>
+    <arg name="initial_pose_a" default="0.0"/>
   
 
 
@@ -48,7 +51,7 @@
         
         
 
-        <node name="urdf_spawner"
+        <!-- <node name="urdf_spawner"
                 pkg="gazebo_ros"
                 type="spawn_model"
                 respawn="false"
@@ -57,6 +60,25 @@
                 -R $(arg R) -P $(arg P) -Y $(arg Y)
                 -model $(arg model_name) 
                 -param robot_description" />
+
+        
+                <node name="amcl"
+                pkg="amcl"
+                type="amcl"
+                clear_params="true">
+            <rosparam command="load" file="$(find leo_navigation)/config/amcl.yaml"/>
+      
+            <param name="odom_frame_id" value="$(arg robot_ns)/odom"/>
+            <param name="base_frame_id" value="$(arg robot_ns)/base_footprint"/>
+            <param name="initial_pose_x" value="$(arg initial_pose_x)"/>
+            <param name="initial_pose_y" value="$(arg initial_pose_y)"/>
+            <param name="initial_pose_a" value="$(arg initial_pose_a)"/>
+      
+      
+            <remap from="map" to="/map" /> 
+        </node> -->
+
+        
     </group>
 
 

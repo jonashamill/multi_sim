@@ -1,0 +1,9 @@
+<launch>
+
+  <include file="$(find multi_sim)/launch/launch_gazebo.launch"
+    pass_all_args="true">
+    <arg name="world_name" value="$(find multi_sim)/worlds/1cs_v2_tags.world"/>
+  </include>
+
+
+</launch>

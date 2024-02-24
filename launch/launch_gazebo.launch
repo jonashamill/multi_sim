@@ -9,6 +9,8 @@
   <arg name="debug" default="false"/>
   <arg name="verbose" default="false"/>
 
+  <arg name="map_file" default="$(find multi_sim)/maps/BIGMAP.yaml"/>
+
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(arg world_name)"/>
     <arg name="paused" value="$(arg paused)"/>
@@ -16,6 +18,12 @@
     <arg name="debug" value="$(arg debug)"/>
     <arg name="verbose" value="$(arg verbose)"/>
   </include>
+
+
+  <node name="map_server"
+          pkg="map_server"
+          type="map_server"
+          args="$(arg map_file)"/>
 
 
   <!-- First robot -->
@@ -57,9 +65,9 @@
 
 
   <!-- Launch rviz for visualization purposes-->
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find leo_gazebo)/config/robot1_rviz.rviz" />
-  <node name="rviz2" pkg="rviz" type="rviz" args="-d $(find leo_gazebo)/config/robot2_rviz.rviz" />
-  <node name="rviz3" pkg="rviz" type="rviz" args="-d $(find leo_gazebo)/config/robot3_rviz.rviz" />
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find multi_sim)/config/robot1_rviz.rviz" />
+  <!-- <node name="rviz2" pkg="rviz" type="rviz" args="-d $(find leo_gazebo)/config/robot2_rviz.rviz" /> -->
+  <!-- <node name="rviz3" pkg="rviz" type="rviz" args="-d $(find leo_gazebo)/config/robot3_rviz.rviz" /> -->
 
 
 </launch>
