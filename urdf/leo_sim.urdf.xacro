@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro"
+       name="leo_sim">
+
+  <xacro:arg name="fixed" default="false"/>
+  <xacro:arg name="robot_ns" default=""/>
+  <xacro:arg name="mecanum_wheels" default="false"/>
+
+  <xacro:include filename="$(find leo_description)/urdf/macros.xacro"/>
+  <xacro:include filename="$(find hector_sensors_description)/urdf/hokuyo_utm30lx.urdf.xacro"/>
+
+  <xacro:leo_sim robot_ns="$(arg robot_ns)"
+                 fixed="$(arg fixed)"
+                 mecanum_wheels="$(arg mecanum_wheels)"/>
+
+  <xacro:hokuyo_utm30lx
+     name="hokuyo_laser"
+     parent="$(arg robot_ns)/base_footprint"
+     ros_topic="/$(arg robot_ns)/scan"
+     update_rate="10"
+     ray_count="500"
+     min_angle="-130"
+     max_angle="130">
+     <origin xyz="0.05 0 0.25" rpy="0 0 0" />
+     <!-- <visualize>true</visualize> -->
+     </xacro:hokuyo_utm30lx>
+
+
+</robot>
