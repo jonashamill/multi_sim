@@ -1,0 +1,14 @@
+<launch>
+    <arg name="robot_ns" default="robot1"/>
+
+    <arg name="odom_topic" default="$(arg robot_ns)/odometry_merged"/>
+    <arg name="child_frame_id" default="$(arg robot_ns)/base_footprint"/>
+  
+    <group ns="$(arg robot_ns)">
+      <node name="odom2tf" pkg="multi_sim" type="odom2tf_py.py">
+        <param name="odom_topic" value="$(arg odom_topic)"/>
+        <param name="child_frame_id" value="$(arg child_frame_id)"/>
+      </node>
+    </group>
+    
+  </launch>

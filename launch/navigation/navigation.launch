@@ -1,0 +1,34 @@
+<launch>
+
+  <arg name="robot_ns" default="robot1" />
+
+  <group ns="$(arg robot_ns)">
+
+
+    <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">
+        <rosparam command="load" ns="global_costmap" file="$(find leo_navigation)/config/move_base/costmaps/costmap_common.yaml"/>
+        <rosparam command="load" ns="local_costmap" file="$(find leo_navigation)/config/move_base/costmaps/costmap_common.yaml"/>
+        <rosparam command="load" file="$(find leo_navigation)/config/move_base/costmaps/local_costmap.yaml"/>
+        <rosparam command="load" file="$(find leo_navigation)/config/move_base/costmaps/global_costmap.yaml"/>
+        <rosparam command="load" file="$(find leo_navigation)/config/move_base/planners/local_planner.yaml"/>
+        <rosparam command="load" file="$(find leo_navigation)/config/move_base/planners/global_planner.yaml"/>
+
+        <param name="global_costmap/robot_base_frame" value="$(arg robot_ns)/base_footprint"/>
+        <param name="local_costmap/global_frame" value="$(arg robot_ns)/odom" />
+        <param name="local_costmap/robot_base_frame" value="$(arg robot_ns)/base_footprint"/>
+        <param name="local_costmap/local_costmap" value="$(arg robot_ns)/odom"/>
+        <param name="local_costmap/robot_base_frame" value="$(arg robot_ns)/base_footprint"/>
+
+        <param  name="local_costmap/obstacle_layer/scan/topic" value="$(arg robot_ns)/scan"/>
+        <param  name="global_costmap/obstacle_layer/scan/topic" value="$(arg robot_ns)/scan"/>
+
+
+ 
+        <param name="global_costmap/obstacle_layer/scan/sensor_frame"  value="$(arg robot_ns)/laser" />
+        <param name="local_costmap/obstacle_layer/scan/sensor_frame"  value="$(arg robot_ns)/laser" />
+
+    </node>
+
+  </group>
+
+</launch>

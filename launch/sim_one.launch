@@ -2,6 +2,7 @@
 
     <!-- load leo_sim xacro -->
     <arg name="model" default="$(find multi_sim)/urdf/leo_sim.urdf.xacro" />
+    
     <arg name="fixed" default="false" />
     <arg name="model_name" default="leo" />  
     <arg name="robot_ns" default="robot1" />
@@ -17,6 +18,8 @@
     <arg name="initial_pose_a" default="0.0"/>
   
 
+    <!-- <arg name="map_file" default="$(find multi_sim)/maps/BIGMAP.yaml"/> -->
+    
 
     <group ns="$(arg robot_ns)">
         <param name="robot_description" command="xacro $(arg model) fixed:=$(arg fixed) robot_ns:='$(arg robot_ns)'" />
@@ -27,8 +30,12 @@
         <param name="odom_frame_id" value="$(arg robot_ns)/odom"/>
         <param name="base_frame_id" value="$(arg robot_ns)/base_footprint"/>
 
-        
-        
+        <!-- <node name="map_server"
+          pkg="map_server"
+          type="map_server"
+          args="$(arg map_file)"/> -->
+
+
         <node name="controller_spawner"
                 pkg="controller_manager"
                 type="spawner" args="
@@ -51,7 +58,7 @@
         
         
 
-        <!-- <node name="urdf_spawner"
+        <node name="urdf_spawner"
                 pkg="gazebo_ros"
                 type="spawn_model"
                 respawn="false"
@@ -61,12 +68,16 @@
                 -model $(arg model_name) 
                 -param robot_description" />
 
+        <include file="$(find multi_sim)/launch/navigation/odometry.launch">
+            <arg name="robot_ns" value="$(arg robot_ns)" />
+        </include>
+
         
-                <node name="amcl"
+        <!-- <node name="amcl"
                 pkg="amcl"
                 type="amcl"
                 clear_params="true">
-            <rosparam command="load" file="$(find leo_navigation)/config/amcl.yaml"/>
+            <rosparam command="load" file="$(find multi_sim)/config/amcl.yaml"/>
       
             <param name="odom_frame_id" value="$(arg robot_ns)/odom"/>
             <param name="base_frame_id" value="$(arg robot_ns)/base_footprint"/>
@@ -77,6 +88,8 @@
       
             <remap from="map" to="/map" /> 
         </node> -->
+
+        <!-- <include file="$(find amcl)/examples/amcl_diff.launch"/> -->
 
         
     </group>

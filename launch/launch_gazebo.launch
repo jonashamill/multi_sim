@@ -9,7 +9,6 @@
   <arg name="debug" default="false"/>
   <arg name="verbose" default="false"/>
 
-  <arg name="map_file" default="$(find multi_sim)/maps/BIGMAP.yaml"/>
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(arg world_name)"/>
@@ -20,12 +19,6 @@
   </include>
 
 
-  <node name="map_server"
-          pkg="map_server"
-          type="map_server"
-          args="$(arg map_file)"/>
-
-
   <!-- First robot -->
   <include file="$(find multi_sim)/launch/sim_one.launch">
     <arg name="robot_ns" value="robot1"/>
@@ -33,9 +26,9 @@
     <arg name="x" value="-7.2"/>
     <arg name="y" value="5.1"/>
     <arg name="Y" value="0.0"/>
-    <!-- <arg name="initial_pose_x" value="0.0"/> -->
-    <!-- <arg name="initial_pose_y" value="0.0"/> -->
-    <!-- <arg name="initial_pose_a" value="0.0"/> -->
+    <arg name="initial_pose_x" value="0.0"/>
+    <arg name="initial_pose_y" value="0.0"/>
+    <arg name="initial_pose_a" value="0.0"/>
   </include>
 
 
@@ -46,9 +39,9 @@
     <arg name="x" value="1.8"/>
     <arg name="y" value="5.5"/>
     <arg name="Y" value="3.14159"/>
-    <!-- <arg name="initial_pose_x" value="9.4"/> -->
-    <!-- <arg name="initial_pose_y" value="0.4"/> -->
-    <!-- <arg name="initial_pose_a" value="3.14159"/> -->
+    <arg name="initial_pose_x" value="9.4"/>
+    <arg name="initial_pose_y" value="0.4"/>
+    <arg name="initial_pose_a" value="3.14159"/>
   </include>
 
   <!-- Third Robot -->
@@ -58,9 +51,9 @@
     <arg name="x" value="-5.78"/>
     <arg name="y" value="1.48"/>
     <arg name="Y" value="0"/>
-    <!-- <arg name="initial_pose_x" value="1.3679514140172924"/> -->
-    <!-- <arg name="initial_pose_y" value="-3.8"/> -->
-    <!-- <arg name="initial_pose_a" value="0"/> -->
+    <arg name="initial_pose_x" value="1.3679514140172924"/>
+    <arg name="initial_pose_y" value="-3.8"/>
+    <arg name="initial_pose_a" value="0"/>
   </include>
 
 
