@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<launch>
+
+
+  <arg name="patroller" value="$(find multi_sim)/launch/navigation/patrolling.launch" />
+  <!-- <arg name="artagger" value="$(find patpkg)/launch/plasticpat.launch" /> -->
+
+  <!-- First robot -->
+  <include file="$(arg patroller)">
+    <arg name="robot_ns" value="robot1"/>
+  </include>
+
+
+<!-- Second Robot -->
+  <include file="$(arg patroller)">
+    <arg name="robot_ns" value="robot2"/>
+  </include>
+
+  <!-- Third Robot -->
+  <include file="$(arg patroller)">
+    <arg name="robot_ns" value="robot3"/>
+  </include>
+
+
+</launch>

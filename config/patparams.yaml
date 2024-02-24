@@ -1,0 +1,16 @@
+robot1:
+  patrols: 4
+  route: multi-exp_1.csv
+  start_node: 1
+
+
+robot2:
+  patrols: 8
+  route: straightpat.csv
+  start_node: 1
+
+
+robot3:
+  patrols: 4
+  route: multi-exp_2.csv
+  start_node: 1

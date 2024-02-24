@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+
+    <arg name="robot_ns" default="robot1"/>
+
+
+    <group ns="$(arg robot_ns)">
+
+        <node pkg="leo_navigation" type="fsm_move.py" name="patrol" output="screen"> 
+
+            <rosparam command="load" file="$(find leo_navigation)/config/patparams.yaml" />
+
+        </node>
+
+    </group>
+    
+</launch>
