@@ -19,11 +19,8 @@
 
     <param name="use_sim_time" value="true"/>
 
-    <arg name="map_file" default="$(find multi_sim)/maps/BIGMAP.yaml"/>
+    <arg name="map_file" default="$(find multi_sim)/maps/diff_ics_v1.yaml"/>
 
-  
-
-    
 
     <group ns="$(arg robot_ns)">
         <param name="robot_description" command="xacro $(arg model) fixed:=$(arg fixed) robot_ns:='$(arg robot_ns)'" />

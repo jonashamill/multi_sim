@@ -11,7 +11,7 @@ TrajectoryPlannerROS:
   min_vel_theta: -0.5
   min_in_place_vel_theta: 0.4
   escape_vel: -1.1
-  holonomic_robot: false
+  # holonomic_robot: false
 
   # Goal tolerance
   yaw_goal_tolerance: 0.1

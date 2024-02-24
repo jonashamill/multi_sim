@@ -530,7 +530,7 @@
           <!-- <wheelSeparation>1</wheelSeparation>
 	        <wheelDiameter>1</wheelDiameter>
           <broadcastTF>1</broadcastTF> -->
-          <wheelTorque>10</wheelTorque>
+          <wheelTorque>1000</wheelTorque>
           <!-- <wheelAcceleration>1.8</wheelAcceleration> -->
           <!-- <commandTopic>$(arg robot_ns)/cmd_vel</commandTopic> -->
           <odometryFrame>$(arg robot_ns)/odom</odometryFrame>

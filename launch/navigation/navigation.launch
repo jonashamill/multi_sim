@@ -2,7 +2,7 @@
 
   <arg name="robot_ns" default="robot1" />
 
-  <group ns="$(arg robot_ns)">
+  <!-- <group ns="$(arg robot_ns)"> -->
 
     <include file="$(find multi_sim)/launch/navigation/twist_mux.launch" />
 
@@ -25,11 +25,11 @@
 
 
  
-        <param name="global_costmap/obstacle_layer/scan/sensor_frame"  value="$(arg robot_ns)/laser" />
-        <param name="local_costmap/obstacle_layer/scan/sensor_frame"  value="$(arg robot_ns)/laser" />
+        <!-- <param name="global_costmap/obstacle_layer/scan/sensor_frame"  value="$(arg robot_ns)/laser" /> -->
+        <!-- <param name="local_costmap/obstacle_layer/scan/sensor_frame"  value="$(arg robot_ns)/laser" /> -->
 
     </node>
 
-  </group>
+  <!-- </group> -->
 
 </launch>
