@@ -40,7 +40,7 @@ obstacle_layer:
 #   observation_sources: scan
 
 #   scan:
-#     topic: scan
+#     topic: robot1/scan
 #     observation_persistance: 0.0
 #     expected_update_rate: 0.30
 #     data_type: LaserScan

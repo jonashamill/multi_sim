@@ -2,6 +2,8 @@
 
   <arg name="robot_ns" default="robot1" />
 
+  <!-- <group ns="$(arg robot_ns)"> -->
+
     <include file="$(find multi_sim)/launch/navigation/twist_mux.launch" />
 
     <node name="move_base" pkg="move_base" type="move_base" respawn="false" output="screen">
@@ -18,6 +20,11 @@
         <param name="local_costmap/local_costmap" value="$(arg robot_ns)/odom"/>
         <param name="local_costmap/robot_base_frame" value="$(arg robot_ns)/base_footprint"/>
 
+        <param name="global_costmap/obstacle_layer/laser/sensor_frame"  value="$(arg robot_ns)/laser" />
+        <param name="local_costmap/obstacle_layer/laser/sensor_frame"  value="$(arg robot_ns)/laser" />
+
     </node>
+
+  <!-- </group> -->
 
 </launch>
