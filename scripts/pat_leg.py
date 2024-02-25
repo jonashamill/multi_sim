@@ -72,6 +72,9 @@ def getPath():
     timeThresholdLow = rospy.get_param("/timeThresholdLow")
     timeThresholdHigh = rospy.get_param("/timeThresholdHigh")
 
+    #Getting trial number
+    trial = rospy.get_param("/trial")
+
     path = os.path.join(packagePath, "logs")
 
     path = (packagePath + "/logs/" + hostName + "/TTH_" + str(timeThresholdLow) + "_" + str(timeThresholdHigh) + "_trial_" + str(trial) + "/extras/")

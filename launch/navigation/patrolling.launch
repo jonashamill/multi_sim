@@ -7,15 +7,7 @@
 
     <group ns="$(arg robot_ns)">
 
-        <!-- <include file="$(find multi_sim)/launch/navigation/navigation.launch">
-            <arg name="robot_ns" value="$(arg robot_ns)" />
-        </include> -->
-
-
-        <node pkg="multi_sim" type="pat_leg.py" name="patroller" output="screen"> 
-
-            
-        </node>
+        <node pkg="multi_sim" type="fsm_move.py" name="patroller" output="screen"/> 
 
         <!-- <include file="$(find patpkg)/launch/plasticpat.launch" >
             <arg name="robot_ns" value="$(arg robot_ns)"/>    
