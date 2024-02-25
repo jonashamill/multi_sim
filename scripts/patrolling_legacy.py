@@ -70,19 +70,19 @@ def getPath():
     hostName = str(socket.gethostname())
 
     #Getting TTH Values
-    timeThresholdLow = rospy.get_param("timeThresholdLow")
-    timeThresholdHigh = rospy.get_param("timeThresholdHigh")
-    trial = rospy.get_param("trial")
+    timeThresholdLow = rospy.get_param("/timeThresholdLow")
+    timeThresholdHigh = rospy.get_param("/timeThresholdHigh")
+    trial = rospy.get_param("trialNumber")
 
     path = os.path.join(packagePath, "logs")
 
-    path = (packagePath + "/logs/" + hostName + "/TTH_" + str(timeThresholdLow) + "_" + str(timeThresholdHigh) + "_trial_" + str(trial) + "/extras/")
+    path = (packagePath + "/logs/" + robot_ns + "/TTH_" + str(timeThresholdLow) + "_" + str(timeThresholdHigh) + "_trial_" + str(trial) + "/extras/")
 
 
     if not os.path.exists(path):
         os.makedirs(path)
 
-    fullpath = os.path.join(path, timenow + hostName + "_TTH_" + str(timeThresholdLow) + "_" + str(timeThresholdHigh) + "_trial_" + str(trial) + "_patlog.csv")
+    fullpath = os.path.join(path, timenow + robot_ns + "_TTH_" + str(timeThresholdLow) + "_" + str(timeThresholdHigh) + "_trial_" + str(trial) + "_patlog.csv")
 
     print (fullpath)
 
@@ -124,12 +124,13 @@ class Patroller():
 
     def __init__(self):
 
+        global robot_ns
+
         rospy.init_node('patroller')  # initialize node
 
         # preprocessing --------------------------------------------------
 
         robot_ns = rospy.get_namespace()
-        robot_ns = robot_ns + "patroller" + robot_ns
 
         # gets csv file path
         rp = rospkg.RosPack()
@@ -243,10 +244,10 @@ class Patroller():
                 exit()
             self.goal_cnt +=1
             rospy.loginfo("Goal pose "+str(self.goal_cnt)+" reached")
-            if rospy.get_param("~speed") == "slow":
+            if rospy.get_param("/speed") == "slow":
                     rospy.loginfo("Spinning...")
                     self.spin_robot()
-            if self.goal_cnt != rospy.get_param("~start_node"):#
+            if self.goal_cnt != rospy.get_param(robot_ns + "start_node"):#
                 if self.goal_cnt == len(self.pose_seq):
                     self.goal_cnt = 0
                 rospy.loginfo("Moving onto next goal...")

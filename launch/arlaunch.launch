@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<launch>
+
+   <arg name="robot_ns" default="robot1"/>
+
+
+  <!-- <group ns="$(arg robot_ns)"> -->
+
+
+    <arg name="cam_image_topic" default="$(arg robot_ns)/camera/image_raw" />
+    <arg name="cam_info_topic" default="$(arg robot_ns)/camera/camera_info" />
+
+
+    
+
+
+    <node name="ar_track_alvar" pkg="ar_track_alvar" type="individualMarkersNoKinect" output="screen">
+
+      <rosparam command="load" file="$(find multi_sim)/config/alvar_tags/alvar.yaml" />
+      <param name="output_frame" value="$(arg robot_ns)/base_footprint"/>
+
+      <remap from="camera_image" to="$(arg cam_image_topic)" />
+      <remap from="camera_info" to="$(arg cam_info_topic)" />
+    </node>
+
+    <node name="arLogger" pkg="multi_sim" type="logger_legacy.py" output="screen"/>
+    <!-- <node name="movelogs" pkg="arLogger" type="movelogs.py" output="screen"> -->
+
+    <!-- <node name="jogger" pkg="arLogger" type="jogger.py" output="screen"> -->
+      
+  <!-- </group> -->
+
+</launch>
