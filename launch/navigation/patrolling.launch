@@ -3,6 +3,8 @@
 
     <arg name="robot_ns" default=""/>
 
+    <rosparam command="load" file="$(find multi_sim)/config/patparams.yaml" />
+
     <group ns="$(arg robot_ns)">
 
         <!-- <include file="$(find multi_sim)/launch/navigation/navigation.launch">
@@ -10,9 +12,9 @@
         </include> -->
 
 
-        <node pkg="multi_sim" type="fsm_move.py" name="patroller" output="screen"> 
+        <node pkg="multi_sim" type="pat_leg.py" name="patroller" output="screen"> 
 
-            <rosparam command="load" file="$(find multi_sim)/config/patparams.yaml" />
+            
         </node>
 
         <!-- <include file="$(find patpkg)/launch/plasticpat.launch" >
