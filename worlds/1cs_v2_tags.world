@@ -1210,7 +1210,7 @@
           <pose>0 0 1.25 0 -0 0</pose>
           <geometry>
             <box>
-              <size>2 0.15 2.5</size>
+              <size>1.2 0.15 2.5</size>
             </box>
           </geometry>
           <material>
@@ -1224,7 +1224,7 @@
             <layer>0</layer>
           </meta>
         </visual>
-        <pose>1.30559 3.82614 0 0 -0 -1.5708</pose>
+        <pose>1.30559 3.6 0 0 -0 -1.5708</pose>
         <self_collide>0</self_collide>
         <enable_wind>0</enable_wind>
         <kinematic>0</kinematic>
@@ -4500,7 +4500,7 @@
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
         <link name='Wall_17'>
-          <pose>2.13191 4.65877 0 0 -0 3.14159</pose>
+          <pose>2.13191 4.2 0 0 -0 3.14159</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
