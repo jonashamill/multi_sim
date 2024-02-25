@@ -38,36 +38,38 @@ if __name__ == '__main__':
 
     waypoints = read_waypoints(CSV_path)
 
-    patrol = StateMachine(['succeeded', 'aborted', 'preempted'])
-    with patrol:
-        for i,w in enumerate(waypoints):
+    for i in range (patrols):
+        rospy.loginfo(robot_ns + " Patrol number: " + str(i))
 
-            
-            goal_pose = MoveBaseGoal()
-            goal_pose.target_pose.header.frame_id = 'map'
+        patrol = StateMachine(['succeeded', 'aborted', 'preempted'])
+        with patrol:
+            for i,w in enumerate(waypoints):
 
-            
+                
+                goal_pose = MoveBaseGoal()
+                goal_pose.target_pose.header.frame_id = 'map'
 
-            goal_pose.target_pose.pose.position.x = w[0][0]
-            goal_pose.target_pose.pose.position.y = w[0][1]
-            goal_pose.target_pose.pose.position.z = w[0][2]
+                
 
-            goal_pose.target_pose.pose.orientation.x = w[1][0]
-            goal_pose.target_pose.pose.orientation.y = w[1][1]
-            goal_pose.target_pose.pose.orientation.z = w[1][2]
-            goal_pose.target_pose.pose.orientation.w = w[1][3]
+                goal_pose.target_pose.pose.position.x = w[0][0]
+                goal_pose.target_pose.pose.position.y = w[0][1]
+                goal_pose.target_pose.pose.position.z = w[0][2]
 
-            StateMachine.add(w[0], 
-                SimpleActionState('move_base',MoveBaseAction, goal=goal_pose), 
-                transitions={'succeeded':waypoints[(i+1) % len(waypoints)][0]})
-            
-            
-    rospy.loginfo(robot_ns + " Headed to waypoint")
+                goal_pose.target_pose.pose.orientation.x = w[1][0]
+                goal_pose.target_pose.pose.orientation.y = w[1][1]
+                goal_pose.target_pose.pose.orientation.z = w[1][2]
+                goal_pose.target_pose.pose.orientation.w = w[1][3]
 
-    # for i in range (patrols):
-    # rospy.loginfo(robot_ns + " Patrol number: " + str(i))
-    outcome = patrol.execute()
-    rospy.loginfo("State machine transitioning, robot_ns: {}, waypoint: {}. {} moving to waypoint {}".format(robot_ns, i, outcome, (i+1) % len(waypoints)))
+                StateMachine.add(w[0], 
+                    SimpleActionState('move_base',MoveBaseAction, goal=goal_pose), 
+                    transitions={'succeeded':waypoints[(i+1) % len(waypoints)][0]})
+                
+                
+        rospy.loginfo(robot_ns + " Headed to waypoint")
+
+    
+        outcome = patrol.execute()
+        rospy.loginfo("State machine transitioning, robot_ns: {}, waypoint: {}. {} moving to waypoint {}".format(robot_ns, i, outcome, (i+1) % len(waypoints)))
 
 
         
