@@ -221,6 +221,18 @@
       <material>Gazebo/Black</material>
   </gazebo>
 
+  <link name="${link_prefix}box">
+    <visual>
+      <origin xyz="-0.1 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.15 0.2 0.1"/>
+      </geometry>
+      <material name="white">
+        <color rgba="1 1 1 1"/>
+    </material>
+    </visual>
+  </link>
+
 
 
     <link name="${link_prefix}camera_frame"/>
@@ -360,6 +372,15 @@
       <parent link="${link_prefix}base_link"/>
       <child link="${link_prefix}laser"/>
   </joint>
+
+
+  <!-- Attach the box to the base footprint with a fixed joint -->
+  <joint name="box_joint" type="fixed">
+    <parent link="$(arg robot_ns)/base_link"/>
+    <child link="${link_prefix}box"/>
+    <origin xyz="0 0 0.05" rpy="0 0 0"/> <!-- Adjust the z value to half the height of the box -->
+  </joint>
+
 
   </xacro:macro>
 

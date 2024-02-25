@@ -59,7 +59,7 @@ if __name__ == '__main__':
 
             StateMachine.add(w[0], 
                 SimpleActionState('move_base',MoveBaseAction, goal=goal_pose), 
-                transitions={'succeeded':waypoints[(i+1) % len(waypoints)][0], 'aborted': w[0]})
+                transitions={'succeeded':waypoints[(i+1) % len(waypoints)][0]})
             
             
     rospy.loginfo(robot_ns + " Headed to waypoint")

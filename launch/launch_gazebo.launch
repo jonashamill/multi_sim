@@ -60,9 +60,12 @@
 
 
   <!-- Launch rviz for visualization purposes-->
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find multi_sim)/config/rviz/robot1_rviz.rviz" />
-  <node name="rviz2" pkg="rviz" type="rviz" args="-d $(find multi_sim)/config/rviz/robot2_rviz.rviz" />
-  <node name="rviz3" pkg="rviz" type="rviz" args="-d $(find multi_sim)/config/rviz/robot3_rviz.rviz" />
+  <!-- Uncomment for individual rviz, 2D Nav Goal topics set up for each. They need the NS set -->
+  <!-- <node name="rviz" pkg="rviz" type="rviz" args="-d $(find multi_sim)/config/rviz/robot1_rviz.rviz" /> -->
+  <!-- <node name="rviz2" pkg="rviz" type="rviz" args="-d $(find multi_sim)/config/rviz/robot2_rviz.rviz" /> -->
+  <!-- <node name="rviz3" pkg="rviz" type="rviz" args="-d $(find multi_sim)/config/rviz/robot3_rviz.rviz" /> -->
+
+  <node name="rviz3" pkg="rviz" type="rviz" args="-d $(find multi_sim)/config/rviz/rviz_3_bots.rviz" />
 
 
 </launch>
