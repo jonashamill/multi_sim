@@ -30,6 +30,8 @@ if __name__ == '__main__':
 
     route = rospy.get_param(robot_ns_path + 'route')
 
+    patrols = rospy.get_param(robot_ns_path + 'patrols')
+
     rp = rospkg.RosPack()
     package_path = rp.get_path('multi_sim')
     CSV_path = (package_path + "/waypoints/" + route)
@@ -57,8 +59,11 @@ if __name__ == '__main__':
 
             StateMachine.add(w[0], 
                 SimpleActionState('move_base',MoveBaseAction, goal=goal_pose), 
-                transitions={'succeeded':waypoints[(i+1) % len(waypoints)][0]})
+                transitions={'succeeded':waypoints[(i+1) % len(waypoints)][0], 'aborted': w[0]})
             
-            rospy.loginfo("Headed to waypoint" + robot_ns)
-    
-    patrol.execute()
+            
+    rospy.loginfo(robot_ns + " Headed to waypoint")
+
+    for i in range (patrols):
+        rospy.loginfo(robot_ns + " Patrol number: " + str(i))
+        patrol.execute()

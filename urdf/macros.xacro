@@ -249,7 +249,8 @@
       <parent link="${link_prefix}base_link"/>
       <child link="${link_prefix}rocker_L_link"/>
       <axis xyz="0 1 0"/>
-      <limit effort="100.0" lower="-0.24" upper="0.24" velocity="100.0"/>
+      <!-- <limit effort="100.0" lower="-0.24" upper="0.24" velocity="100.0"/> -->
+      <limit effort="1000.0" lower="-0.05" upper="0.05" velocity="0.1"/>
       <dynamics friction="1.0" damping="0.1"/>
     </joint>
 
@@ -258,7 +259,8 @@
       <parent link="${link_prefix}base_link"/>
       <child link="${link_prefix}rocker_R_link"/>
       <axis xyz="0 1 0"/>
-      <limit effort="100.0" lower="-0.24" upper="0.24" velocity="100.0"/>
+      <!-- <limit effort="100.0" lower="-0.24" upper="0.24" velocity="100.0"/> -->
+      <limit effort="1000.0" lower="-0.05" upper="0.05" velocity="0.1"/>
       <dynamics friction="1.0" damping="0.1"/> 
       <mimic joint="rocker_L_joint"/>
     </joint>
@@ -495,7 +497,7 @@
       <plugin name="rocker_differential" filename="libleo_gazebo_differential_plugin.so">
         <jointA>rocker_L_joint</jointA>
         <jointB>rocker_R_joint</jointB>
-        <forceConstant>100.0</forceConstant>
+        <forceConstant>10.0</forceConstant>
       </plugin>
     </gazebo>
 
@@ -530,7 +532,7 @@
           <!-- <wheelSeparation>1</wheelSeparation>
 	        <wheelDiameter>1</wheelDiameter>
           <broadcastTF>1</broadcastTF> -->
-          <wheelTorque>1000</wheelTorque>
+          <wheelTorque>10000</wheelTorque>
           <!-- <wheelAcceleration>1.8</wheelAcceleration> -->
           <!-- <commandTopic>$(arg robot_ns)/cmd_vel</commandTopic> -->
           <odometryFrame>$(arg robot_ns)/odom</odometryFrame>
