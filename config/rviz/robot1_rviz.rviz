@@ -190,8 +190,8 @@ Visualization Manager:
       Head Diameter: 0.30000001192092896
       Head Length: 0.20000000298023224
       Length: 0.30000001192092896
-      Line Style: Lines
-      Line Width: 0.029999999329447746
+      Line Style: Billboards
+      Line Width: 0.10000000149011612
       Name: Path
       Offset:
         X: 0
@@ -232,19 +232,19 @@ Visualization Manager:
     - Class: rviz/Measure
     - Class: rviz/SetInitialPose
       Theta std deviation: 0.2617993950843811
-      Topic: /initialpose
+      Topic: robot1/initialpose
       X std deviation: 0.5
       Y std deviation: 0.5
     - Class: rviz/SetGoal
-      Topic: /move_base_simple/goal
+      Topic: robot1/move_base_simple/goal
     - Class: rviz/PublishPoint
       Single click: true
-      Topic: /clicked_point
+      Topic: robot1/clicked_point
   Value: true
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 15.424814224243164
+      Distance: 13.150053024291992
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -252,17 +252,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 3.4393510818481445
-        Y: -1.049877405166626
-        Z: 1.4431217908859253
+        X: 3.3135645389556885
+        Y: -9.462474822998047
+        Z: -0.16568529605865479
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.7853979468345642
+      Pitch: 0.9503978490829468
       Target Frame: <Fixed Frame>
-      Yaw: 2.440394639968872
+      Yaw: 4.380399703979492
     Saved: ~
 Window Geometry:
   Displays:
@@ -280,5 +280,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1299
-  X: 123
-  Y: 27
+  X: 386
+  Y: 200

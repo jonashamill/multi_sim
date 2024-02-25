@@ -66,4 +66,8 @@ if __name__ == '__main__':
 
     for i in range (patrols):
         rospy.loginfo(robot_ns + " Patrol number: " + str(i))
-        patrol.execute()
+        outcome = patrol.execute()
+        rospy.loginfo("State machine transitioning, robot_ns: {}, waypoint: {}. {} moving to waypoint {}".format(robot_ns, i, outcome, (i+1) % len(waypoints)))
+
+
+        
