@@ -11,6 +11,7 @@ Panels:
         - /LaserScan1
         - /Path1
         - /Map2
+        - /Map3
       Splitter Ratio: 0.5
     Tree Height: 455
   - Class: rviz/Selection
@@ -292,11 +293,21 @@ Visualization Manager:
       Value: true
     - Alpha: 0.699999988079071
       Class: rviz/Map
-      Color Scheme: map
+      Color Scheme: costmap
       Draw Behind: false
       Enabled: true
       Name: Map
       Topic: /robot3/move_base/global_costmap/costmap
+      Unreliable: false
+      Use Timestamp: false
+      Value: true
+    - Alpha: 0.699999988079071
+      Class: rviz/Map
+      Color Scheme: costmap
+      Draw Behind: false
+      Enabled: true
+      Name: Map
+      Topic: /robot3/move_base/local_costmap/costmap
       Unreliable: false
       Use Timestamp: false
       Value: true
@@ -328,7 +339,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 15.133096694946289
+      Distance: 16.949068069458008
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -367,4 +378,4 @@ Window Geometry:
     collapsed: false
   Width: 1662
   X: 565
-  Y: 76
+  Y: 39

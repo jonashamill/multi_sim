@@ -10,6 +10,8 @@ Panels:
         - /Map1
         - /LaserScan1
         - /Path1
+        - /Map2
+        - /Map3
       Splitter Ratio: 0.5
     Tree Height: 396
   - Class: rviz/Selection
@@ -291,11 +293,21 @@ Visualization Manager:
       Value: true
     - Alpha: 0.699999988079071
       Class: rviz/Map
-      Color Scheme: map
+      Color Scheme: costmap
       Draw Behind: false
       Enabled: true
       Name: Map
-      Topic: /move_base/global_costmap/costmap
+      Topic: /robot2/move_base/global_costmap/costmap
+      Unreliable: false
+      Use Timestamp: false
+      Value: true
+    - Alpha: 0.699999988079071
+      Class: rviz/Map
+      Color Scheme: costmap
+      Draw Behind: false
+      Enabled: true
+      Name: Map
+      Topic: /robot2/move_base/local_costmap/costmap
       Unreliable: false
       Use Timestamp: false
       Value: true

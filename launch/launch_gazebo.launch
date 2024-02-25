@@ -61,8 +61,8 @@
 
   <!-- Launch rviz for visualization purposes-->
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(find multi_sim)/config/robot1_rviz.rviz" />
-  <!-- <node name="rviz2" pkg="rviz" type="rviz" args="-d $(find leo_gazebo)/config/robot2_rviz.rviz" /> -->
-  <!-- <node name="rviz3" pkg="rviz" type="rviz" args="-d $(find leo_gazebo)/config/robot3_rviz.rviz" /> -->
+  <node name="rviz2" pkg="rviz" type="rviz" args="-d $(find multi_sim)/config/robot2_rviz.rviz" />
+  <node name="rviz3" pkg="rviz" type="rviz" args="-d $(find multi_sim)/config/robot3_rviz.rviz" />
 
 
 </launch>
