@@ -20,22 +20,22 @@
 
 
   <!-- First robot -->
-  <include file="$(find multi_sim)/launch/sim_one.launch">
+  <!-- <include file="$(find multi_sim)/launch/sim_one.launch">
     <arg name="robot_ns" value="robot1"/>
-    <arg name="model_name" value="leo1"/>
+    <arg name="model_name" value="leo1"/> -->
     <!-- Gazebo init pose -->
-    <arg name="x" value="-7.2"/>
+    <!-- <arg name="x" value="-7.2"/>
     <arg name="y" value="5.1"/>
-    <arg name="Y" value="0.0"/>
+    <arg name="Y" value="0.0"/> -->
     <!--AMCL init pose -->
-    <arg name="initial_pose_x" value="0.0"/>
+    <!-- <arg name="initial_pose_x" value="0.0"/>
     <arg name="initial_pose_y" value="0.0"/>
     <arg name="initial_pose_a" value="0.0"/>
-  </include>
+  </include> -->
 
 
 <!-- Second Robot -->
-  <include file="$(find multi_sim)/launch/sim_one.launch">
+  <!-- <include file="$(find multi_sim)/launch/sim_one.launch">
     <arg name="robot_ns" value="robot2"/>
     <arg name="model_name" value="leo2"/>
     <arg name="x" value="1.8"/> 
@@ -44,10 +44,10 @@
     <arg name="initial_pose_x" value="9.4"/>
     <arg name="initial_pose_y" value="0.4"/>
     <arg name="initial_pose_a" value="3.14159"/>
-  </include>
+  </include> -->
 
   <!-- Third Robot -->
-  <include file="$(find multi_sim)/launch/sim_one.launch">
+  <!-- <include file="$(find multi_sim)/launch/sim_one.launch">
     <arg name="robot_ns" value="robot3"/>
     <arg name="model_name" value="leo3"/>
     <arg name="x" value="-5.78"/>
@@ -56,7 +56,7 @@
     <arg name="initial_pose_x" value="1.3679514140172924"/>
     <arg name="initial_pose_y" value="-3.8"/>
     <arg name="initial_pose_a" value="0"/>
-  </include>
+  </include> -->
 
 
   <!-- Launch rviz for visualization purposes-->

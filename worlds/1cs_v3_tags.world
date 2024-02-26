@@ -1435,7 +1435,7 @@
           <pose>0 0 0.75 0 -0 0</pose>
           <geometry>
             <box>
-              <size>0.75 0.15 2.5</size>
+              <size>0.5 0.15 2.5</size>
             </box>
           </geometry>
           <material>
@@ -1851,7 +1851,7 @@
         <collision name='Wall_49_Collision'>
           <geometry>
             <box>
-              <size>6.75 0.15 2.5</size>
+              <size>1.75 0.15 2.5</size>
             </box>
           </geometry>
           <pose>0 0 1.25 0 -0 0</pose>
@@ -4051,10 +4051,10 @@
       <pose>-1.92171 6.19208 0 0 -0 0</pose>
     </model>
     <state world_name='default'>
-      <sim_time>5311 919000000</sim_time>
-      <real_time>145 784430302</real_time>
-      <wall_time>1708960472 316741843</wall_time>
-      <iterations>145346</iterations>
+      <sim_time>6099 783000000</sim_time>
+      <real_time>104 283820472</real_time>
+      <wall_time>1708965026 700793529</wall_time>
+      <iterations>103989</iterations>
       <model name='1cs_v2'>
         <pose>-2.09868 -0.09237 0 0 -0 0</pose>
         <scale>1 1 1</scale>
@@ -4354,10 +4354,10 @@
         </link>
       </model>
       <model name='Floor'>
-        <pose>10.6268 9.40086 0 0 -0 0</pose>
+        <pose>0.88493 2.78745 0.010732 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='main'>
-          <pose>10.6268 9.40086 0.01 0 -0 0</pose>
+          <pose>-2.11507 1.02995 0.010732 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -4424,10 +4424,10 @@
         </link>
       </model>
       <model name='Marker4'>
-        <pose>-3.19573 2.89136 0.169451 0 -0 0</pose>
+        <pose>-3.76465 3.12621 0.169451 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link'>
-          <pose>-3.19573 2.89136 0.169451 0 -0 0</pose>
+          <pose>-3.76465 3.12621 0.169451 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -4494,7 +4494,7 @@
         </link>
       </model>
       <model name='door_0'>
-        <pose>2.27785 6.53364 -0 0 -0 0.870768</pose>
+        <pose>2.27785 6.53364 0 0 -0 0.870768</pose>
         <scale>1 1 1</scale>
         <link name='link_0'>
           <pose>2.27785 6.53364 -0 0 -0 0.870768</pose>
@@ -4514,48 +4514,32 @@
         </link>
       </model>
       <model name='drawer_white'>
-        <pose>-3.65002 3.8376 0 0 -0 0</pose>
+        <pose>-4.21022 3.56008 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link_0'>
-          <pose>-3.65431 3.8174 0 0 -0 0</pose>
+          <pose>-4.21451 3.53988 -0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
         <link name='link_1'>
-          <pose>-3.64573 3.8578 0 0 -0 0</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-      </model>
-      <model name='drawer_white_0'>
-        <pose>-3.63867 3.11297 0 0 -0 0</pose>
-        <scale>1 1 1</scale>
-        <link name='link_0'>
-          <pose>-3.64296 3.09277 0 0 -0 0</pose>
-          <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>0 0 0 0 -0 0</acceleration>
-          <wrench>0 0 0 0 -0 0</wrench>
-        </link>
-        <link name='link_1'>
-          <pose>-3.63438 3.13317 0 0 -0 0</pose>
+          <pose>-4.20593 3.58028 -0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
       </model>
       <model name='drawer_white_1'>
-        <pose>-3.63873 2.80638 0 0 -0 0</pose>
+        <pose>-4.21032 3.04351 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link_0'>
-          <pose>-3.64302 2.78618 0 0 -0 0</pose>
+          <pose>-4.21461 3.02331 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
         <link name='link_1'>
-          <pose>-3.63444 2.82658 0 0 -0 0</pose>
+          <pose>-4.20603 3.06371 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -4710,22 +4694,22 @@
         </link>
       </model>
       <model name='table_conference_2_1'>
-        <pose>-5.112 3.6004 0 0 -0 0</pose>
+        <pose>-5.12462 3.6004 0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='link_2'>
-          <pose>-5.112 3.6004 0 0 -0 0</pose>
+          <pose>-5.12462 3.6004 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
         <link name='link_3'>
-          <pose>-5.112 3.6004 0 0 -0 0</pose>
+          <pose>-5.12462 3.6004 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
         </link>
         <link name='link_4'>
-          <pose>-5.112 3.6004 0 0 -0 0</pose>
+          <pose>-5.12462 3.6004 0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
@@ -4842,13 +4826,13 @@
         </link>
       </model>
       <model name='unit_box'>
-        <pose>-0.722632 -0.853859 0.477744 6e-06 -6e-06 -1.1e-05</pose>
+        <pose>-0.722635 -0.853847 0.478477 -1e-05 -0 -1.5e-05</pose>
         <scale>0.77979 0.773233 0.925498</scale>
         <link name='link'>
-          <pose>-0.722632 -0.853859 0.477744 6e-06 -6e-06 -1.1e-05</pose>
+          <pose>-0.722635 -0.853847 0.478477 -1e-05 -0 -1.5e-05</pose>
           <velocity>0 0 0 0 -0 0</velocity>
-          <acceleration>-1.3e-05 -1.2e-05 -9.79996 5.1e-05 -4.9e-05 2e-06</acceleration>
-          <wrench>-1.3e-05 -1.2e-05 -9.79996 0 -0 0</wrench>
+          <acceleration>0.494732 1.14268 -7.36786 -2.46913 1.07108 0.001866</acceleration>
+          <wrench>0.494732 1.14268 -7.36786 0 -0 0</wrench>
         </link>
       </model>
       <model name='unit_box_0'>
@@ -4870,11 +4854,11 @@
     </state>
     <model name='Floor'>
       <link name='main'>
-        <pose>0 0 0.01 0 -0 0</pose>
+        <pose>-3 -1.7575 0 0 -0 0</pose>
         <collision name='main_Collision'>
           <geometry>
             <box>
-              <size>40 40 0.01</size>
+              <size>14.5 23.2 0.01</size>
             </box>
           </geometry>
           <max_contacts>10</max_contacts>
@@ -4903,7 +4887,7 @@
         <visual name='main_Visual'>
           <geometry>
             <box>
-              <size>40 40 0.01</size>
+              <size>14.5 23.2 0.01</size>
             </box>
           </geometry>
           <material>
@@ -5022,108 +5006,6 @@
       <static>1</static>
       <allow_auto_disable>1</allow_auto_disable>
       <pose>-3.65002 3.8376 0 0 -0 0</pose>
-    </model>
-    <model name='drawer_white_0'>
-      <link name='link_0'>
-        <pose>-0.004287 -0.020202 0 0 -0 0</pose>
-        <visual name='visual'>
-          <geometry>
-            <mesh>
-              <uri>model://drawer_white/meshes/base.dae</uri>
-              <scale>1 1 1</scale>
-            </mesh>
-          </geometry>
-          <material>
-            <script>
-              <uri>model://drawer_white/materials/scripts</uri>
-              <uri>model://drawer_white/materials/textures</uri>
-              <name>drawer_white</name>
-            </script>
-          </material>
-          <cast_shadows>1</cast_shadows>
-          <transparency>0</transparency>
-        </visual>
-        <collision name='collision'>
-          <laser_retro>0</laser_retro>
-          <max_contacts>10</max_contacts>
-          <pose>0 0 0 0 -0 0</pose>
-          <geometry>
-            <mesh>
-              <uri>model://drawer_white/meshes/base.dae</uri>
-              <scale>1 1 1</scale>
-            </mesh>
-          </geometry>
-          <surface>
-            <contact>
-              <ode/>
-            </contact>
-            <bounce/>
-            <friction>
-              <torsional>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-          </surface>
-        </collision>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
-      </link>
-      <link name='link_1'>
-        <pose>0.004286 0.020202 0 0 -0 0</pose>
-        <visual name='visual'>
-          <pose>0 0 0 0 -0 0</pose>
-          <geometry>
-            <mesh>
-              <uri>model://drawer_white/meshes/handle.dae</uri>
-              <scale>1 1 1</scale>
-            </mesh>
-          </geometry>
-          <material>
-            <lighting>1</lighting>
-            <script>
-              <uri>file://media/materials/scripts/gazebo.material</uri>
-              <name>Gazebo/Grey</name>
-            </script>
-            <ambient>0.3 0.3 0.3 1</ambient>
-            <diffuse>0.7 0.7 0.7 1</diffuse>
-            <specular>0.01 0.01 0.01 1</specular>
-            <emissive>0 0 0 1</emissive>
-          </material>
-          <cast_shadows>1</cast_shadows>
-          <transparency>0</transparency>
-        </visual>
-        <collision name='collision'>
-          <laser_retro>0</laser_retro>
-          <max_contacts>10</max_contacts>
-          <pose>0 0 0 0 -0 0</pose>
-          <geometry>
-            <mesh>
-              <uri>model://drawer_white/meshes/handle.dae</uri>
-              <scale>1 1 1</scale>
-            </mesh>
-          </geometry>
-          <surface>
-            <contact>
-              <ode/>
-            </contact>
-            <bounce/>
-            <friction>
-              <torsional>
-                <ode/>
-              </torsional>
-              <ode/>
-            </friction>
-          </surface>
-        </collision>
-        <self_collide>0</self_collide>
-        <enable_wind>0</enable_wind>
-        <kinematic>0</kinematic>
-      </link>
-      <static>1</static>
-      <allow_auto_disable>1</allow_auto_disable>
-      <pose>-3.63867 3.11297 0 0 -0 0</pose>
     </model>
     <model name='drawer_white_1'>
       <link name='link_0'>
@@ -5433,7 +5315,7 @@
     </model>
     <gui fullscreen='0'>
       <camera name='user_camera'>
-        <pose>-7.79034 17.1295 9.91764 0 0.661797 -0.805403</pose>
+        <pose>-10.8947 9.70731 13.2362 0 0.817797 -1.0953</pose>
         <view_controller>orbit</view_controller>
         <projection_type>perspective</projection_type>
       </camera>

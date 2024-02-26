@@ -4,7 +4,7 @@ footprint: [[0.21, 0.22], [0.21, -0.22], [-0.21, -0.22], [-0.21, 0.22]]
 
 # http://wiki.ros.org/costmap_2d/hydro/staticmap
 static_layer:
-  unknown_cost_value: -0.1
+  unknown_cost_value: -1
   lethal_cost_threshold: 100
   map_topic: map
   first_map_only: false
@@ -15,7 +15,7 @@ static_layer:
 
 # http://wiki.ros.org/costmap_2d/hydro/obstacles
 obstacle_layer:
-  max_obstacle_height: 10
+  max_obstacle_height: 0.3
   min_obstacle_height: 0.01
   obstacle_range: 2.5
   raytrace_range: 3.0
@@ -35,6 +35,8 @@ obstacle_layer:
     min_obstacle_height: 0.01
     max_obstacle_height: 10
     inf_is_valid: false
+    observation_persistance: 0.0
+    # expected_update_rate: 0.25
 
 
 #   observation_sources: scan
@@ -53,4 +55,4 @@ obstacle_layer:
 # http://wiki.ros.org/costmap_2d/hydro/inflation
 inflation_layer:
   inflation_radius: 0.25
-  cost_scaling_factor: 30.0
+  cost_scaling_factor: 40.0

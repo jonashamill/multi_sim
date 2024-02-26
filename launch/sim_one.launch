@@ -19,7 +19,7 @@
 
     <param name="use_sim_time" value="true"/>
 
-    <arg name="map_file" default="$(find multi_sim)/maps/diff_ics_v1.yaml"/>
+    <arg name="map_file" default="$(find multi_sim)/maps/BIGMAP.yaml"/>
 
 
     <group ns="$(arg robot_ns)">
