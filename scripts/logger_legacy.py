@@ -53,7 +53,7 @@ def rosInit():
     global timeThresholdLow
     global robot_ns
 
-    rospy.init_node("multi_sim")
+    rospy.init_node("arlogger")
 
     robot_ns = rospy.get_namespace()
 
@@ -70,8 +70,8 @@ def rosInit():
     # rospy.Subscriber('maxVelocity', Float32, maxVelocityCallback)
     # rospy.Subscriber('minVelocity', Float32, minVelocityCallback)
 
-    rospy.on_shutdown(metricsCSV)
-    rospy.on_shutdown(saveCSV)
+    # rospy.on_shutdown(metricsCSV)
+    # rospy.on_shutdown(saveCSV)
     
 
 def getTime():
@@ -103,13 +103,16 @@ def getPath():
 
 
     hostName = robot_ns
+    hostName = robot_ns
+    hostName = hostName.replace('/','')
+
 
     #Getting trial number
-    trial = rospy.get_param("/trial")
+    trial = rospy.get_param("/trialNumber")
 
     # path = os.path.join(packagePath, "logs")
 
-    path = (packagePath + "/logs/" + hostName + "/TTH_" + str(timeThresholdLow) + "_" + str(timeThresholdHigh) + "_trial_" + str(trial) + "/extras/")
+    path = (packagePath + "/logs/" + hostName + "/TTH_" + str(timeThresholdLow) + "_" + str(timeThresholdHigh) + "/trial_" + str(trial) + "/extras/")
 
 
     if not os.path.exists(path):

@@ -4,18 +4,10 @@
 
     <arg name="robot_ns" default="robot1" />
 
-    <!-- <group ns="$(arg robot_ns)"> -->
+    <include file="$(find multi_sim)/launch/arlaunch.launch">
+        <arg name="robot_ns" value="$(arg robot_ns)" />
+    </include>
 
-        <!-- <rosparam command="load" file="$(find patpkg)/config/params.yaml" /> -->
-
-        <include file="$(find multi_sim)/launch/arlaunch.launch">
-            <arg name="robot_ns" value="$(arg robot_ns)" />
-        </include>
-
-        <node name="patrol" pkg="multi_sim" type="updateParams.py" output="screen">
-            <!-- <rosparam command="load" file="$(find patpkg)/config/params.yaml" /> -->
-
-        </node>
-    <!-- </group> -->
+    <node name="ud_params" pkg="multi_sim" type="updateParams.py" output="screen"/>
    
 </launch>

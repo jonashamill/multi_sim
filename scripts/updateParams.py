@@ -40,7 +40,7 @@ def main():
     global tagMSG
 
     #initialise rosnode
-    rospy.init_node("patrol")
+    rospy.init_node("ud_params")
 
 
     usePlasticity = rospy.get_param("/usePlasticity", True)

@@ -69,20 +69,23 @@ def getPath():
     #getting hostName to determine different
     hostName = str(socket.gethostname())
 
+    hostName = robot_ns
+    hostName = hostName.replace('/','')
+
     #Getting TTH Values
     timeThresholdLow = rospy.get_param("/timeThresholdLow")
     timeThresholdHigh = rospy.get_param("/timeThresholdHigh")
-    trial = rospy.get_param("trialNumber")
+    trial = rospy.get_param("/trialNumber")
 
     path = os.path.join(packagePath, "logs")
 
-    path = (packagePath + "/logs/" + robot_ns + "/TTH_" + str(timeThresholdLow) + "_" + str(timeThresholdHigh) + "_trial_" + str(trial) + "/extras/")
+    path = (packagePath + "/logs/" + hostName + "/TTH_" + str(timeThresholdLow) + "_" + str(timeThresholdHigh) + "/trial_" + str(trial) + "/extras/")
 
 
     if not os.path.exists(path):
         os.makedirs(path)
 
-    fullpath = os.path.join(path, timenow + robot_ns + "_TTH_" + str(timeThresholdLow) + "_" + str(timeThresholdHigh) + "_trial_" + str(trial) + "_patlog.csv")
+    fullpath = os.path.join(path, timenow + hostName + "_TTH_" + str(timeThresholdLow) + "_" + str(timeThresholdHigh) + "_trial_" + str(trial) + "_patlog.csv")
 
     print (fullpath)
 
@@ -170,14 +173,14 @@ class Patroller():
 
         # Create action client -------------------------------------------
         self.client = actionlib.SimpleActionClient('move_base', MoveBaseAction)
-        rospy.loginfo("Waiting for move_base action server...")
+        rospy.loginfo(robot_ns + "Waiting for move_base action server...")
         wait = self.client.wait_for_server(rospy.Duration(5.0))
         if not wait:
-            rospy.logerr("Action server not available!")
-            rospy.signal_shutdown("Action server not available!")
+            rospy.logerr(robot_ns + "Action server not available!")
+            rospy.signal_shutdown("robot_ns + Action server not available!")
             return
-        rospy.loginfo("Connected to move base server")
-        rospy.loginfo("Starting goals achievements ...")
+        rospy.loginfo(robot_ns + "Connected to move base server")
+        rospy.loginfo(robot_ns + "Starting goals achievements ...")
 
         # Initiate status subscriber
         self.status_subscriber = rospy.Subscriber(
@@ -222,11 +225,11 @@ class Patroller():
         goal.target_pose.header.frame_id = "map"
         goal.target_pose.header.stamp = rospy.Time.now()
         goal.target_pose.pose = self.pose_seq[self.goal_cnt]
-        rospy.loginfo("Sending goal pose " +
+        rospy.loginfo(robot_ns + "Sending goal pose " +
                       str(self.goal_cnt+1)+" to Action Server")
         #rospy.loginfo(str(self.pose_seq[self.goal_cnt]))
         self.client.send_goal(goal)
-        rospy.loginfo("==========* GOAL SENT *==========")
+        rospy.loginfo("==========*" + robot_ns + "GOAL SENT *==========")
         
         
 
@@ -239,21 +242,21 @@ class Patroller():
 
         if status == 3:
             if self.tick == 1: # tick is one, returned home, done.
-                rospy.loginfo("FIN")
-                rospy.signal_shutdown("FIN")
+                rospy.loginfo(robot_ns + "FIN")
+                rospy.signal_shutdown(robot_ns + "FIN")
                 exit()
             self.goal_cnt +=1
-            rospy.loginfo("Goal pose "+str(self.goal_cnt)+" reached")
+            rospy.loginfo(robot_ns + "Goal pose "+str(self.goal_cnt)+" reached")
             if rospy.get_param("/speed") == "slow":
-                    rospy.loginfo("Spinning...")
+                    rospy.loginfo(robot_ns + "Spinning...")
                     self.spin_robot()
             if self.goal_cnt != rospy.get_param(robot_ns + "start_node"):#
                 if self.goal_cnt == len(self.pose_seq):
                     self.goal_cnt = 0
-                rospy.loginfo("Moving onto next goal...")
+                rospy.loginfo(robot_ns + "Moving onto next goal...")
                 self.movebase_client()
             else:
-                rospy.loginfo("Final goal pose reached!")
+                rospy.loginfo(robot_ns + "Final goal pose reached!")
                 self.patrol_count += 1
                 print(self.patrol_count)
                 if self.patrol_count == rospy.get_param(robot_ns + "patrols"): # if done all the patrols return home, set tick to 1
@@ -265,9 +268,9 @@ class Patroller():
                     # rospy.loginfo(str(self.pose_seq[rospy.get_param("~start_node")]))
                     self.client.send_goal(goal)
                     self.tick = 1
-                    rospy.loginfo("==========* Returning Home *==========")
+                    rospy.loginfo("==========*" + robot_ns + "Returning Home *==========")
                 else:
-                    rospy.loginfo("Repeating patrol ...")
+                    rospy.loginfo(robot_ns + "Repeating patrol ...")
                     self.goal_cnt = rospy.get_param(robot_ns + "start_node")
                     self.movebase_client()
 
@@ -287,15 +290,15 @@ class Patroller():
 
             while not rospy.is_shutdown():  # Continuously check while the node is active
 
-                rospy.Subscriber('plasticTopic', Int32, plasticCallback)
+                rospy.Subscriber(robot_ns + 'plasticTopic', Int32, plasticCallback)
 
-                rospy.Subscriber('tagTopic', Int32, tagCallback)
+                rospy.Subscriber(robot_ns + 'tagTopic', Int32, tagCallback)
 
                 if plasticMSG == 1 and tagMSG == True:
                     
-                    rospy.loginfo('Plastic set to: %s', str(plasticMSG))
+                    rospy.loginfo(robot_ns + 'Plastic set to: %s', str(plasticMSG))
 
-                    rospy.loginfo("Behaving")
+                    rospy.loginfo(robot_ns + "Behaving")
 
                     ranDomNo = random.randrange(0,2)
 
@@ -336,10 +339,10 @@ class Patroller():
                     vel_msg = Twist()
                     self.vel_pub.publish(vel_msg)
 
-                    rospy.loginfo(str(beHave) + " Behaviour Done")
+                    rospy.loginfo(str(beHave) + robot_ns + " Behaviour Done")
 
                     # Publish 'tag' as a ROS topic
-                    tagPub = rospy.Publisher('tagTopic', Int32, queue_size=10)
+                    tagPub = rospy.Publisher(robot_ns + 'tagTopic', Int32, queue_size=10)
                     tagPub.publish(False)
         
 
@@ -381,4 +384,4 @@ if __name__ == '__main__':
         # waypoints.reverse()
         # MoveBaseSeq(waypoints,theta)
     except rospy.ROSInterruptException:
-        rospy.loginfo("Navigation finished.")
+        rospy.loginfo(robot_ns + "Navigation finished.")
