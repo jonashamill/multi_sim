@@ -4354,10 +4354,10 @@
         </link>
       </model>
       <model name='Floor'>
-        <pose>0.88493 2.78745 0.010732 0 -0 0</pose>
+        <pose>0.88493 2.78745 0.0 0 -0 0</pose>
         <scale>1 1 1</scale>
         <link name='main'>
-          <pose>-2.11507 1.02995 0.010732 0 -0 0</pose>
+          <pose>-2.11507 1.02995 0.0 0 -0 0</pose>
           <velocity>0 0 0 0 -0 0</velocity>
           <acceleration>0 0 0 0 -0 0</acceleration>
           <wrench>0 0 0 0 -0 0</wrench>
