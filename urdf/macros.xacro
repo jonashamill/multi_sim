@@ -665,11 +665,11 @@
       <sensor type="ray" name="head_hokuyo_sensor">
         <pose>0 0 0 0 0 0</pose>
         <visualize>false</visualize>
-        <update_rate>120</update_rate>
+        <update_rate>30</update_rate>
         <ray>
           <scan>
             <horizontal>
-              <samples>720</samples>
+              <samples>721</samples>
               <resolution>1</resolution>
               <min_angle>-1.570796</min_angle>
               <max_angle>1.570796</max_angle>
@@ -677,7 +677,7 @@
           </scan>
           <range>
             <min>0.10</min>
-            <max>30.0</max>
+            <max>10.0</max>
             <resolution>1</resolution>
           </range>
           <noise>
