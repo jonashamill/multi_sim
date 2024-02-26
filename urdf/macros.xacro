@@ -500,7 +500,7 @@
           <cameraName>camera</cameraName>
           <imageTopicName>image_raw</imageTopicName>
           <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-          <frameName>camera_optical_frame</frameName>
+          <frameName>${robot_ns}/camera_optical_frame</frameName>
           <distortionK1>-0.279817</distortionK1>
           <distortionK2>0.060321</distortionK2>
           <distortionK3>0.000487</distortionK3>
@@ -518,7 +518,7 @@
       <plugin name="rocker_differential" filename="libleo_gazebo_differential_plugin.so">
         <jointA>rocker_L_joint</jointA>
         <jointB>rocker_R_joint</jointB>
-        <forceConstant>10.0</forceConstant>
+        <forceConstant>10000.0</forceConstant>
       </plugin>
     </gazebo>
 
@@ -539,7 +539,7 @@
     <gazebo>
       <plugin name="differential_drive_controller" filename="libgazebo_ros_diff_drive.so">
         <legacyMode>false</legacyMode>
-        <rosDebugLevel>Debug</rosDebugLevel>
+        <rosDebugLevel>false</rosDebugLevel>
         <publishWheelTF>false</publishWheelTF>
         <robotNamespace>${robot_ns}</robotNamespace> 
           <publishTf>1</publishTf>
@@ -665,7 +665,7 @@
       <sensor type="ray" name="head_hokuyo_sensor">
         <pose>0 0 0 0 0 0</pose>
         <visualize>false</visualize>
-        <update_rate>40</update_rate>
+        <update_rate>120</update_rate>
         <ray>
           <scan>
             <horizontal>
@@ -677,7 +677,7 @@
           </scan>
           <range>
             <min>0.10</min>
-            <max>10.0</max>
+            <max>30.0</max>
             <resolution>1</resolution>
           </range>
           <noise>

@@ -7,8 +7,8 @@
   <!-- <group ns="$(arg robot_ns)"> -->
 
 
-    <arg name="cam_image_topic" default="$(arg robot_ns)/camera/image_raw" />
-    <arg name="cam_info_topic" default="$(arg robot_ns)/camera/camera_info" />
+    <arg name="cam_image_topic" default="camera/image_raw" />
+    <arg name="cam_info_topic" default="camera/camera_info" />
 
 
     
@@ -24,7 +24,7 @@
     </node>
 
     <node name="arlogger" pkg="multi_sim" type="logger_legacy.py" output="screen"/>
-    <!-- <node name="movelogs" pkg="arLogger" type="movelogs.py" output="screen"> -->
+    <!-- <node name="movelogs" pkg="arLogger" type="movelogs.py" output="screen"/> -->
 
     <node name="jogger" pkg="multi_sim" type="jogger_legacy.py" output="screen"/>
       

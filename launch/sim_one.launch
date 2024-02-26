@@ -49,10 +49,10 @@
                 type="relay"
                 args="cmd_vel controllers/diff_drive/cmd_vel" />
         
-        <!-- <node name="odom_relay"
+        <node name="odom_relay"
                 pkg="topic_tools"
                 type="relay"
-                args="controllers/diff_drive/odom nav_msgs/Odometry" /> -->
+                args="controllers/diff_drive/odom nav_msgs/Odometry" />
      
 
         <node name="urdf_spawner"
