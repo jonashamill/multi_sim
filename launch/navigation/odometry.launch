@@ -1,8 +1,8 @@
 <launch>
     <arg name="robot_ns" default="robot1"/>
 
-    <arg name="odom_topic" default="$(arg robot_ns)/odometry_merged"/>
-    <arg name="child_frame_id" default="$(arg robot_ns)/base_footprint"/>
+    <arg name="odom_topic" default="odom_merged"/>
+    <arg name="child_frame_id" default="base_footprint"/>
   
     <!-- <group ns="$(arg robot_ns)"> -->
       <node name="odom2tf" pkg="multi_sim" type="odom2tf_py.py">
@@ -10,5 +10,46 @@
         <param name="child_frame_id" value="$(arg child_frame_id)"/>
       </node>
     <!-- </group> -->
+
+    <remap from="odom" to="/base_truth_odom" />
+    <node pkg="robot_pose_ekf" type="robot_pose_ekf" name="robot_pose_ekf">
+      <param name="output_frame" value="$(arg robot_ns)/odom"/>
+      <param name="base_footprint_frame" value="$(arg robot_ns)/base_footprint"/>
+
+      <rosparam command="load" file="$(find multi_sim)/config/ekf_params.yaml"/>
+    </node>
+
+    <node pkg='robot_localization' type='navsat_transform_node' name='navsat_transform_node' respawn='true'>
+      <param name='magnetic_declination_radians' value='0.012749'/>
+      <param name='zero_altitude' value='0'/>
+      <param name='yaw_offset' value='1.57080'/>
+      <!-- Publish the robot's GPS coordinates transformed from the world frame (/odom frame) to the topic '/gps/filtered' --> 
+      <param name='publish_filtered_gps' value='false'/>
+      <!-- Publish the transform utm-> world_frame (/odom frame) --> 
+      <param name='broadcast_cartesian_transform' value='true'/>
+      <param name='broadcast_cartesian_transform_as_parent_frame' value='true'/> 
+      <!-- <remap from='odom' to='/$(arg tfpre)/odom'/> -->
+      <!-- Specifying the global frame ORIGIN (/odom - robot's starting position) -->
+            <!-- param name="wait_for_datum" value="true"/-->
+            <!-- rosparam param="datum">[51.336496, -2.784524, 0.0, odom, base_link]</rosparam -->
+      <!-- navsat_transform_node subscribing to namespace and project-specific topic --> 
+      <remap from='gps/fix' to='/navsat/fix'/>
+      <param name='zero_altitude' value='0'/>
+			<!-- param name='yaw_offset' value='1.57080'/ -->
+
+			<!-- Publish the robot's GPS coordinates transformed from the world frame (/odom frame) to the topic '/gps/filtered' --> 
+			<param name='publish_filtered_gps' value='true'/>
+
+			<!-- Publish the transfrom utm-> world_frame (/odom frame) --> 
+			<param name='broadcast_cartesian_transform' value='true'/>
+			<param name='broadcast_cartesian_transform_as_parent_frame' value='true'/> 
+
+			<!-- Specifying the global frame ORIGIN (/odom - robot's starting position) -->
+				<!-- param name="wait_for_datum" value="true"/-->
+				<rosparam param="datum">[51.336496, -2.784524, 48.00, odom, base_link]</rosparam>
+
+			<!-- navsat_transform_node subscribing to the project-specific topics --> 
+				<remap from='/imu/data' to='/imu/data_raw'/>
+    </node>
     
   </launch>

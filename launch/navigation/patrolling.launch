@@ -7,6 +7,10 @@
 
     <group ns="$(arg robot_ns)">
 
+        <!-- <include file="$(find auto_nav)/launch/explore.launch">
+            <arg name="robot_ns" value="$(arg robot_ns)"/>    
+        </include> -->
+
         <node pkg="multi_sim" type="patrolling_legacy.py" name="patroller" output="screen"/> 
 
         <include file="$(find multi_sim)/launch/plasticpat.launch" >

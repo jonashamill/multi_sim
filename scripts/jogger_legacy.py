@@ -31,6 +31,8 @@ start_time = time.time()
 timeThresholdLow = rospy.get_param("/timeThresholdLow")
 timeThresholdHigh = rospy.get_param("/timeThresholdHigh")
 trial = rospy.get_param("/trialNumber")
+usePlasticity = rospy.get_param("/usePlasticity")
+
 
 print (timeThresholdLow)
 rospy.loginfo("trial" + str(trial))
@@ -39,16 +41,26 @@ rospy.loginfo("trial" + str(trial))
 rp = rospkg.RosPack()
 package_path = rp.get_path('multi_sim')
 
-folder_path = (package_path + "/logs/" + hostName + "/TTH_" + str(timeThresholdLow) + "_" + str(timeThresholdHigh) + "/trial_" + str(trial))
+if usePlasticity:
+    condition = "TTH_" + str(timeThresholdLow) + "_" + str(timeThresholdHigh)
+else:
+    condition = "NP"
+
+folder_path = (package_path + "/logs/" + hostName + "/" + condition + "/trial_" + str(trial))
+
+metricsfolder = (package_path + "/logs/" + hostName + "/" + condition + "/trial_" + str(trial) + "/metrics")
 
 
 if not os.path.exists(folder_path):
     os.makedirs(folder_path)
+
+if not os.path.exists(metricsfolder):
+    os.makedirs(metricsfolder)
     
-vel_path = (folder_path + "/" + timenow + hostName + "_TTH_" + str(timeThresholdLow) + "_" + str(timeThresholdHigh) +  "_trial_" + str(trial) + "_vellog.csv")
-pose_path = (folder_path + "/" + timenow + hostName + "_TTH_" + str(timeThresholdLow) + "_" + str(timeThresholdHigh) +  "_trial_" + str(trial) + "_poselog.csv")
-battery_path = (folder_path + "/" + timenow + hostName + "_TTH_" + str(timeThresholdLow) + "_" + str(timeThresholdHigh) +  "_trial_" + str(trial) + "_batlog.csv") 
-metrics_path = (folder_path + "/" + timenow + hostName + "_TTH_" + str(timeThresholdLow) + "_" + str(timeThresholdHigh) +  "_trial_" + str(trial) + "_metricspog.csv") 
+vel_path = (folder_path + "/" + timenow + "_" + hostName + "_" + condition +  "_trial_" + str(trial) + "_vellog.csv")
+pose_path = (folder_path + "/" + timenow + "_" + hostName + "_" + condition +  "_trial_" + str(trial) + "_poselog.csv")
+battery_path = (folder_path + "/" + timenow + "_" + hostName + "_" + condition +  "_trial_" + str(trial) + "_batlog.csv") 
+metrics_path = (folder_path + "/metrics/" + timenow + "_" + hostName + "_" + condition +  "_trial_" + str(trial) + "_metricspog.csv") 
 
 def vel_callback(msg):
     lin_x = msg.linear.x

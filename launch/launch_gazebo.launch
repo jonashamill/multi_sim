@@ -5,7 +5,7 @@
 
   <arg name="world_name" default="worlds/empty.world"/>
   <arg name="paused" default="false"/>
-  <arg name="gui" default="true"/>
+  <arg name="gui" default="false"/>
   <arg name="debug" default="false"/>
   <arg name="verbose" default="false"/>
 
@@ -38,11 +38,11 @@
   <include file="$(find multi_sim)/launch/sim_one.launch">
     <arg name="robot_ns" value="robot2"/>
     <arg name="model_name" value="leo2"/>
-    <arg name="x" value="1.8"/> 
-    <arg name="y" value="5.5"/>
+    <arg name="x" value="-1.2"/> 
+    <arg name="y" value="3.4"/>
     <arg name="Y" value="3.14159"/>
-    <arg name="initial_pose_x" value="9.4"/>
-    <arg name="initial_pose_y" value="0.4"/>
+    <arg name="initial_pose_x" value="5.92929744720459"/>
+    <arg name="initial_pose_y" value="-1.4568896293640137"/>
     <arg name="initial_pose_a" value="3.14159"/>
   </include>
 

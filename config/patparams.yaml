@@ -1,21 +1,21 @@
 robot1:
   patrols: 4
-  route: multi-exp_1.csv
+  route: robot_1_wp.csv
   start_node: 0
   
 
 robot2:
   patrols: 8
-  route: straightpat.csv
+  route: robot_2_wp.csv
   start_node: 0
 
 
 robot3:
   patrols: 4
-  route: multi-exp_2.csv
+  route: robot_3_wp.csv
   start_node: 0
 
-trialNumber: 1
+trialNumber: 5
 timeThresholdLow: 2
 timeThresholdHigh: 6
 speed: fast

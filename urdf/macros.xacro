@@ -665,19 +665,19 @@
       <sensor type="ray" name="head_hokuyo_sensor">
         <pose>0 0 0 0 0 0</pose>
         <visualize>false</visualize>
-        <update_rate>30</update_rate>
+        <update_rate>50</update_rate>
         <ray>
           <scan>
             <horizontal>
               <samples>721</samples>
-              <resolution>1</resolution>
+              <resolution>0.1</resolution>
               <min_angle>-1.570796</min_angle>
               <max_angle>1.570796</max_angle>
             </horizontal>
           </scan>
           <range>
             <min>0.10</min>
-            <max>10.0</max>
+            <max>100.0</max>
             <resolution>1</resolution>
           </range>
           <noise>
@@ -695,6 +695,23 @@
         </plugin>
       </sensor>
     </gazebo>
+
+    <!-- GPS PLUGIN -->
+    <gazebo>
+      <plugin name="gps_controller" filename="libhector_gazebo_ros_gps.so">
+          <updateRate>10</updateRate>
+          <robotNamespace>$(arg robot_ns)</robotNamespace>
+          <bodyName>$(arg robot_ns)/base_link</bodyName>
+          <frameId>base_link</frameId>
+          <topicName>$(arg robot_ns)/navsat/fix</topicName>
+          <velocityTopicName>/navsat/vel</velocityTopicName>
+          <referenceLatitude>51.3</referenceLatitude>
+          <referenceLongitude>-2.78</referenceLongitude>
+          <referenceHeading>90</referenceHeading>
+          <referenceAltitude>48.00</referenceAltitude>
+          <drift>0.0001 0.0001 0.0001</drift>
+      </plugin>
+  </gazebo>
 
   </xacro:macro>
 

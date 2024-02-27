@@ -76,16 +76,28 @@ def getPath():
     timeThresholdLow = rospy.get_param("/timeThresholdLow")
     timeThresholdHigh = rospy.get_param("/timeThresholdHigh")
     trial = rospy.get_param("/trialNumber")
+    usePlasticity = rospy.get_param("/usePlasticity")
+
 
     path = os.path.join(packagePath, "logs")
 
-    path = (packagePath + "/logs/" + hostName + "/TTH_" + str(timeThresholdLow) + "_" + str(timeThresholdHigh) + "/trial_" + str(trial) + "/extras/")
+    if usePlasticity:
 
+        path = (packagePath + "/logs/" + hostName + "/TTH_" + str(timeThresholdLow) + "_" + str(timeThresholdHigh) + "/trial_" + str(trial) + "/extras/")
+
+        fullpath = os.path.join(path, timenow + "_" + hostName + "_TTH_" + str(timeThresholdLow) + "_" + str(timeThresholdHigh) + "_trial_" + str(trial) + "_patlog.csv")
+        
+
+    else:
+
+        path = (packagePath + "/logs/" + hostName + "/NP/trial_" + str(trial) + "/extras/")
+
+        fullpath = os.path.join(path, timenow + "_" + hostName + "_NP_trial_" + str(trial) + "_patlog.csv")
+
+       
 
     if not os.path.exists(path):
-        os.makedirs(path)
-
-    fullpath = os.path.join(path, timenow + hostName + "_TTH_" + str(timeThresholdLow) + "_" + str(timeThresholdHigh) + "_trial_" + str(trial) + "_patlog.csv")
+            os.makedirs(path)
 
     print (fullpath)
 
@@ -283,8 +295,7 @@ class Patroller():
         global beHaveList
 
 
-        usePlasticity = True 
-        # rospy.get_param("usePlasticity")
+        usePlasticity = rospy.get_param("/usePlasticity")
 
         if usePlasticity:
 

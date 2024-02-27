@@ -2,7 +2,7 @@ controllers:
 
   state:
     type: joint_state_controller/JointStateController
-    publish_rate: 20
+    publish_rate: 50
 
   diff_drive:
     type: "diff_drive_controller/DiffDriveController"
@@ -12,7 +12,7 @@ controllers:
     right_wheel: ['wheel_RR_joint', 'wheel_FR_joint']
 
     # Odometry
-    publish_rate: 20
+    publish_rate: 50
     open_loop_: false
     wheel_separation_multiplier: 1.91
     velocity_rolling_window_size: 10
