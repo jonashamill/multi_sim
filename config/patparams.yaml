@@ -11,12 +11,12 @@ robot2:
 
 
 robot3:
-  patrols: 4
+  patrols: 5
   route: robot_3_wp.csv
   start_node: 0
 
 trialNumber: 5
-timeThresholdLow: 2
-timeThresholdHigh: 6
+timeThresholdLow: 100
+timeThresholdHigh: 200
 speed: fast
 usePlasticity: true
