@@ -5,7 +5,7 @@
 
   <arg name="world_name" default="worlds/empty.world"/>
   <arg name="paused" default="false"/>
-  <arg name="gui" default="true"/>
+  <arg name="gui" default="false"/>
   <arg name="debug" default="false"/>
   <arg name="verbose" default="false"/>
 
@@ -35,7 +35,7 @@
 
 
 <!-- Second Robot -->
-  <!-- <include file="$(find multi_sim)/launch/sim_one.launch">
+  <include file="$(find multi_sim)/launch/sim_one.launch">
     <arg name="robot_ns" value="robot2"/>
     <arg name="model_name" value="leo2"/>
     <arg name="x" value="-1.2"/> 
@@ -44,10 +44,10 @@
     <arg name="initial_pose_x" value="5.92929744720459"/>
     <arg name="initial_pose_y" value="-1.4568896293640137"/>
     <arg name="initial_pose_a" value="3.14159"/>
-  </include> -->
+  </include>
 
   <!-- Third Robot -->
-  <!-- <include file="$(find multi_sim)/launch/sim_one.launch">
+  <include file="$(find multi_sim)/launch/sim_one.launch">
     <arg name="robot_ns" value="robot3"/>
     <arg name="model_name" value="leo3"/>
     <arg name="x" value="-5.78"/>
@@ -56,7 +56,7 @@
     <arg name="initial_pose_x" value="1.3679514140172924"/>
     <arg name="initial_pose_y" value="-3.8"/>
     <arg name="initial_pose_a" value="0"/>
-  </include> -->
+  </include>
 
 
   <!-- Launch rviz for visualization purposes-->
@@ -65,7 +65,9 @@
   <!-- <node name="rviz2" pkg="rviz" type="rviz" args="-d $(find multi_sim)/config/rviz/robot2_rviz.rviz" /> -->
   <!-- <node name="rviz3" pkg="rviz" type="rviz" args="-d $(find multi_sim)/config/rviz/robot3_rviz.rviz" /> -->
 
-  <node name="rviz3bots" pkg="rviz" type="rviz" args="-d $(find multi_sim)/config/rviz/rviz_3_bots.rviz" />
+  <!-- <node name="rviz3bots" pkg="rviz" type="rviz" args="-d $(find multi_sim)/config/rviz/rviz_3_bots.rviz" /> -->
+
+  <node name="run_trials" pkg="multi_sim" type="run_trials.py"/>
 
 
 </launch>

@@ -204,21 +204,62 @@ def getTag(msg):
             
             timeTaken = round(finish-start, 2)
             currentMarker = marker.id
-            
-            
+                       
             
 
             if checkDuplicate(idListBuffer, currentMarker) or currentMarker > 19:
             
-                if 19 < currentMarker < 26:
+                if int(finish) < 600:
 
-                    rospy.loginfo('I SEE A ROBOT WITH ID: ' + str(currentMarker) )
+                    if len(timeList) > 0:
+                        rospy.loginfo('timelist: ' + str(timeList))
+                        rospy.loginfo('timelist-1:  ' + str(timeList[-1]))
+                        lastTimestamp = timeList[-1]
+                        timeSinceLast = round(timeTaken - lastTimestamp, 2)
+                        rospy.loginfo('timesincelast: ' + str(timeSinceLast))
+
+                        
+                    else:
+                        rospy.loginfo('timesince: 0')
+                        timeSinceLast = 0
+
+                    #timeSinceLast = round(finish - lastTimestamp.get(marker.id, finish), 5)
+                    # lastTimestamp[currentMarker] = finish
+
+                    # Publish 'tag' as a ROS topic
+                    tagPub = rospy.Publisher(robot_ns + 'tagTopic', Int32, queue_size=10)
+                    tagPub.publish(True)
+
+                    _, rosTimeNow = getTime()
+
+
+                    rosTimeList.append(rosTimeNow)
+                    activityLevelList.append(activityLevel)
+                    ranNoList.append(ranDomNo)
+                    timeList.append(timeTaken)
+                    
+                    idListBuffer.append(currentMarker)
+
+                    idQTY += 1
+
+                    if len(idListBuffer) > 5: #this will be replaced with time
+                        idList.extend(idListBuffer)
+                        idListBuffer =[]
+                    
+                    
+                    timeSinceList.append(timeSinceLast)
+                    
+                
+
+                    checktimeLow(timeSinceLast)
 
                 else:
                 
                     continue
 
             else:
+
+
 
                 if len(timeList) > 0:
                     rospy.loginfo('timelist: ' + str(timeList))
