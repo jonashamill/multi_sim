@@ -1,13 +1,14 @@
 <?xml version="1.0" ?><sdf version="1.6">
-  <model name="Marker15">
+  <model name="MarkerData_1_0">
     <static>true</static>
     <link name="link">
       <visual name="visual">
         <geometry>
           <mesh>
-            <uri>model://marker15/meshes/Marker15.dae</uri>
-            <scale>0.15 0.15 0.15</scale></mesh>
-          </geometry>
+            <uri>model://model_tag_1/meshes/marker.dae</uri>
+          <scale>0.2 0.2 0.2</scale>
+          </mesh>
+        </geometry>
       </visual>
     </link>
   </model>
