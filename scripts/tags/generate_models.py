@@ -16,19 +16,21 @@ except ValueError:
   print("Invalid input. Must be integers.")
   sys.exit()
 
+# tag_lower = 0
+tag_upper+=1
 
 
 def main():
     for i in range (tag_lower,tag_upper):
 
 
-        marker_folder = "tag" + str(i)
+        marker_folder = "models/marker" + str(i)
 
         # marker =  os.path.join(images_folder, "Marker{i}.png")
 
 
-        if not os.path.exists(i):
-            os.makedirs(i)
+        if not os.path.exists(marker_folder):
+            os.makedirs(marker_folder)
 
         textures_folder = marker_folder + "/materials/textures"
 
@@ -55,10 +57,10 @@ def main():
 
         
         with open(os.path.join(marker_folder, "model.config"), "w") as config_file:
-                config_file.write(create_config_content(f"AR Tag {i}"))
+                config_file.write(create_config_content(f"{i}"))
         
-        with open(os.path.join(meshes_folder, "Marker" + marker_folder + ".dae"), "w") as dae_file:
-                dae_file.write(create_dae_content(f"AR Tag {str(i)}"))
+        with open(os.path.join(meshes_folder, "Marker" + str(i) + ".dae"), "w") as dae_file:
+                dae_file.write(create_dae_content(f"{str(i)}"))
 
 
 def generate_tags(folder, i):
@@ -83,14 +85,14 @@ def generate_tags(folder, i):
 
 def create_sdf_content(i):
     return f"""<?xml version="1.0" ?><sdf version="1.6">
-  <model name="Marker{i}">
+  <model name="marker{i}">
     <static>true</static>
     <link name="link">
       <visual name="visual">
         <geometry>
           <mesh>
             <uri>model://marker{i}/meshes/Marker{i}.dae</uri>
-            <scale>0.15 0.15 0.15</scale></mesh>
+            <scale>0.2 0.2 0.2</scale></mesh>
           </geometry>
       </visual>
     </link>
@@ -100,7 +102,7 @@ def create_sdf_content(i):
 
 def create_config_content(i):
     return f"""<?xml version="1.0" ?><model>
-  <name>Marker{i}</name>
+  <name>marker{i}</name>
   <version>1.0</version>
   <sdf version="1.6">model.sdf</sdf>
 
