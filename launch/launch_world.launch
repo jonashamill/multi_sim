@@ -3,7 +3,7 @@
   <arg name="fixed" default="false"/>
 
 
-  <arg name="world_name" default="$(find multi_sim)/worlds/1cs_v3_tags.world"/>
+  <arg name="world_name" default="$(find multi_sim)/worlds/1cs_v3_more_tags.world"/>
   <arg name="paused" default="false"/>
   <arg name="gui" default="true"/>
   <arg name="debug" default="false"/>
