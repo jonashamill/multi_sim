@@ -70,7 +70,7 @@
         </include>
             
 
-        <node name="map_server"
+        <!-- <node name="map_server"
             pkg="map_server"
             type="map_server"
             args="$(arg map_file)">
@@ -96,7 +96,7 @@
       
       
             <remap from="map" to="/map" /> 
-        </node>
+        </node> -->
 
         <include file="$(find multi_sim)/launch/navigation/navigation.launch">
             <arg name="robot_ns" value="$(arg robot_ns)" />

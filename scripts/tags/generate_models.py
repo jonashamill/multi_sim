@@ -5,8 +5,15 @@ import sys
 from PIL import Image, ImageOps
 
 
+# To run, type 'rosrun multi_sim generate_models.py lower upper' into terminal, 
+# where 'lower' and 'upper' are replaced with the lowest tag id number and upper
+# the highest tag id you want
+
+
+
+
 if len(sys.argv) != 3:
-  print("Usage: script.py <lower> <upper>")
+  print("Usage: generate_models.py <lower> <upper>")
   sys.exit() 
 
 try:

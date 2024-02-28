@@ -1,0 +1,41 @@
+<launch>
+
+  <arg name="robot_ns" default="robot1" />
+  <arg name="scan_topic" default="scan" />
+
+  <group ns="$(arg robot_ns)">
+  <node name="gmapping"
+    pkg="gmapping"
+    type="slam_gmapping"
+    clear_params="true">
+    <rosparam command="load"
+      file="$(find multi_sim)/config/slam_gmapping.yaml" />
+  </node>
+  </group>
+
+</launch>
+
+
+
+<!-- <launch>
+  <arg name="robot_ns" default="robot1"/>
+  <arg name="multi" default="false"/>
+  <arg name="merge_map_frame" default="/server/merge_map"/>
+  <arg name="merge_map_topic" default="/server/merge_map/grid"/>
+  <arg name="map_frame" default="$(arg robot_ns)/map"/>
+  <arg name="map_topic" default="/$(arg robot_ns)/map_continuity"/>
+
+  <group ns="$(arg robot_ns)">
+    <include file="$(find leo_navigation)/launch/includes/gmapping.launch.xml">
+      <arg name="robot_ns" value="$(arg robot_ns)"/>
+      <arg name="multi" value="$(arg multi)"/>
+      <arg name="merge_map_frame" value="$(arg merge_map_frame)"/>
+      <arg name="merge_map_topic" value="$(arg merge_map_topic)"/>
+      <arg name="map_frame" value="$(arg map_frame)"/>
+      <arg name="map_topic" value="$(arg map_topic)"/>
+     
+    </include>
+
+  </group>
+
+</launch> -->
