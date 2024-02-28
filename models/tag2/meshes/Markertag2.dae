@@ -1,122 +1,4 @@
-#! /usr/bin/env python3
-
-import os
-import sys
-from PIL import Image, ImageOps
-
-
-if len(sys.argv) != 3:
-  print("Usage: script.py <lower> <upper>")
-  sys.exit() 
-
-try:
-  tag_lower = int(sys.argv[1])  
-  tag_upper = int(sys.argv[2])
-except ValueError:
-  print("Invalid input. Must be integers.")
-  sys.exit()
-
-
-
-def main():
-    for i in range (tag_lower,tag_upper):
-
-
-        marker_folder = "tag" + str(i)
-
-        # marker =  os.path.join(images_folder, "Marker{i}.png")
-
-
-        if not os.path.exists(i):
-            os.makedirs(i)
-
-        textures_folder = marker_folder + "/materials/textures"
-
-       
-
-        # os.system("mv {0} {1}".format(marker, textures_folder))
-
-        if not os.path.exists(textures_folder):
-            os.makedirs(textures_folder)    
-
-        
-        generate_tags(textures_folder, i)    
-
-
-        meshes_folder = marker_folder + "/meshes"
-
-        if not os.path.exists(meshes_folder):
-            os.makedirs(meshes_folder)
-
-
-        # Create Gazebo model files
-        with open(os.path.join(marker_folder, "model.sdf"), "w") as sdf_file:
-                sdf_file.write(create_sdf_content(i))
-
-        
-        with open(os.path.join(marker_folder, "model.config"), "w") as config_file:
-                config_file.write(create_config_content(f"AR Tag {i}"))
-        
-        with open(os.path.join(meshes_folder, "Marker" + marker_folder + ".dae"), "w") as dae_file:
-                dae_file.write(create_dae_content(f"AR Tag {str(i)}"))
-
-
-def generate_tags(folder, i):
-    
-    os.system("rosrun ar_track_alvar createMarker {0}".format(i))
-
-    old_name = os.path.join(f"MarkerData_{i}.png")
-    new_name = os.path.join(f"Marker{i}.png")
-
-    os.rename(old_name, new_name)
-
-    image = Image.open(new_name)
-
-        # Add 10px border
-    bordered = ImageOps.expand(image, border=40, fill='white')
-
-        # Overwrite original image
-    bordered.save(new_name)
-
-    os.system("mv {0} {1}".format(new_name, folder))
-
-
-def create_sdf_content(i):
-    return f"""<?xml version="1.0" ?><sdf version="1.6">
-  <model name="Marker{i}">
-    <static>true</static>
-    <link name="link">
-      <visual name="visual">
-        <geometry>
-          <mesh>
-            <uri>model://marker{i}/meshes/Marker{i}.dae</uri>
-            <scale>0.15 0.15 0.15</scale></mesh>
-          </geometry>
-      </visual>
-    </link>
-  </model>
-</sdf>"""
-
-
-def create_config_content(i):
-    return f"""<?xml version="1.0" ?><model>
-  <name>Marker{i}</name>
-  <version>1.0</version>
-  <sdf version="1.6">model.sdf</sdf>
-
-  <author>
-    <name>Jonas Hamill</name>
-    <email>jonas.hamill@bristol.ac.uk</email>
-  </author>
-
-  <description>
-    A model of AR marker
-  </description>
-
-</model>"""
-
-def create_dae_content(i):
-    return f"""<?xml version="1.0" ?><COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+<?xml version="1.0" ?><COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
   <asset>
     <contributor>
       <author>Blender User</author>
@@ -129,7 +11,7 @@ def create_dae_content(i):
   </asset>
   <library_images>
     <image id="Marker0_png" name="Marker0_png">
-      <init_from>Marker{i}.png</init_from>
+      <init_from>MarkerAR Tag 2.png</init_from>
     </image>
   </library_images>
   <library_effects>
@@ -240,8 +122,4 @@ def create_dae_content(i):
   <scene>
     <instance_visual_scene url="#Scene"/>
   </scene>
-</COLLADA>"""
-
-
-if __name__ == "__main__":
-    main()
+</COLLADA>
