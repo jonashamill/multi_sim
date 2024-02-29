@@ -17,8 +17,8 @@ do
 
     rosparam set usePlasticity false 
     rosparam set trialNumber $i
-    rosparam set timeThresholdLow: 1
-    rosparam set timeThresholdHigh: 1
+    rosparam set timeThresholdLow 1
+    rosparam set timeThresholdHigh 1
 
 
     sleep $trialDuration
@@ -43,8 +43,8 @@ do
 
     rosparam set usePlasticity true 
     rosparam set trialNumber $i 
-    rosparam set timeThresholdLow: 2
-    rosparam set timeThresholdHigh: 6
+    rosparam set timeThresholdLow 2
+    rosparam set timeThresholdHigh 6
 
     sleep $trialDuration
 
@@ -69,8 +69,8 @@ do
 
     rosparam set usePlasticity true 
     rosparam set trialNumber $i
-    rosparam set timeThresholdLow: 100
-    rosparam set timeThresholdHigh: 200
+    rosparam set timeThresholdLow 100
+    rosparam set timeThresholdHigh 200
 
 
     sleep $trialDuration
@@ -96,8 +96,8 @@ do
 
     rosparam set usePlasticity true 
     rosparam set trialNumber $i
-    rosparam set timeThresholdLow: 6
-    rosparam set timeThresholdHigh: 10
+    rosparam set timeThresholdLow 6
+    rosparam set timeThresholdHigh 10
 
 
     sleep $trialDuration
