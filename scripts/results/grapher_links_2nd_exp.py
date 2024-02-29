@@ -889,7 +889,7 @@ y_limits = (0, 110)
 colours = dict(zip(subset['robot'].unique(), sns.color_palette(n_colors=len(subset['robot'].unique()))))
 
 lplot = sns.relplot(data=subset, x='time', y='activation', kind='line', hue='robot', palette=colours, height=5, aspect=2, errorbar=('ci',95) )
-lplot.fig.suptitle('Activity Level 6 / 10 - Increase at 600(s)', fontsize=16)
+lplot.fig.suptitle('Activity Level 6 / 10 - Decrease at 600(s)', fontsize=16)
 
 # Set y-axis limits
 plt.ylim(y_limits)
@@ -918,7 +918,7 @@ y_limits = (0, 110)
 colours = dict(zip(subset['robot'].unique(), sns.color_palette(n_colors=len(subset['robot'].unique()))))
 
 lplot = sns.relplot(data=subset, x='time', y='activation', kind='line', hue='robot', palette=colours, height=5, aspect=2, errorbar=('ci',95) )
-lplot.fig.suptitle('Activity Level 6 / 10 - Increase at 600(s)', fontsize=16)
+lplot.fig.suptitle('Activity Level 6 / 10 - Decrease at 600(s)', fontsize=16)
 
 # Set y-axis limits
 plt.ylim(y_limits)
@@ -944,7 +944,7 @@ y_limits = (0, 110)
 colours = dict(zip(subset['robot'].unique(), sns.color_palette(n_colors=len(subset['robot'].unique()))))
 
 lplot = sns.relplot(data=subset, x='time', y='activation', kind='line', hue='robot', palette=colours, height=5, aspect=2, errorbar=('ci',95) )
-lplot.fig.suptitle('Activity Level 100 / 200 - Increase at 600(s)', fontsize=16)
+lplot.fig.suptitle('Activity Level 100 / 200 - Decrease at 600(s)', fontsize=16)
 
 # Set y-axis limits
 plt.ylim(y_limits)
@@ -1018,9 +1018,23 @@ print(df)
 bplot = sns.boxplot( data=df, width=0.4)
 bplot.set_xlabel('Experiment Condition')
 bplot.set_ylabel('Final Tag Count')
-bplot.set_title('Final Tag Count - Increase at 600(s)')
+bplot.set_title('Final Tag Count - Decrease at 600(s)')
 
 
 plt.savefig('src/multi_sim/scripts/results/graphs/Total_tags.pdf')
 plt.savefig('src/multi_sim/scripts/results/graphs/Total_tags.png')
 plt.show()
+
+subset = all_df[ ( all_df['time'] < max_time ) ]
+
+
+
+# having trouble with hue colours
+colours = dict(zip(subset['condition'].unique(), sns.color_palette(n_colors=len(subset['condition'].unique()))))
+
+lplot = sns.relplot(data=subset, x='time', y='cumul_tags', kind='line', hue='condition', palette=colours, height=5, aspect=2, errorbar=('ci',95) )
+lplot.fig.suptitle('Tag Collection over Time - Decrease at 600(s)', fontsize=16)
+plt.show()
+
+plt.savefig('src/multi_sim/scripts/results/graphs/Tags_over_time.pdf')
+plt.savefig('src/multi_sim/scripts/results/graphs/Tags_over_time.png')
