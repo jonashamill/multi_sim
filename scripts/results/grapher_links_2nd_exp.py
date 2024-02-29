@@ -970,7 +970,7 @@ subset = all_df[ ( all_df['condition'] != 'NP' ) ]
 colours = dict(zip(subset['condition'].unique(), sns.color_palette(n_colors=len(subset['condition'].unique()))))
 
 lplot = sns.relplot(data=subset, x='time', y='activation', kind='line', hue='condition', palette=colours, height=5, aspect=2, errorbar=('ci',95) )
-lplot.fig.suptitle('Activity Level Over Time - Increase at 600(s)', fontsize=16)
+lplot.fig.suptitle('Activity Level Over Time - Decrease at 600(s)', fontsize=16)
 
 plt.axhline(y=50, linestyle='--', linewidth=0.8, c='hotpink')
 
@@ -1034,7 +1034,7 @@ colours = dict(zip(subset['condition'].unique(), sns.color_palette(n_colors=len(
 
 lplot = sns.relplot(data=subset, x='time', y='cumul_tags', kind='line', hue='condition', palette=colours, height=5, aspect=2, errorbar=('ci',95) )
 lplot.fig.suptitle('Tag Collection over Time - Decrease at 600(s)', fontsize=16)
-plt.show()
 
 plt.savefig('src/multi_sim/scripts/results/graphs/Tags_over_time.pdf')
 plt.savefig('src/multi_sim/scripts/results/graphs/Tags_over_time.png')
+plt.show()

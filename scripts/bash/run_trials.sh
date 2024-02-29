@@ -108,15 +108,15 @@ do
 
 done
 
-mkdir -p ../../logs/3rd_exp_decrease_at_600
+mkdir -p ../../logs/3rd_exp_increase_at_600
 
-mv ../../logs/robot1 ../../logs/3rd_exp_decrease_at_600
+mv ../../logs/robot1 ../../logs/3rd_exp_increase_at_600
 
-mv ../../logs/robot2 .../../logs/3rd_exp_decrease_at_600
+mv ../../logs/robot2 .../../logs/3rd_exp_increase_at_600
 
-mv ../../logs/robot3 .../../logs/3rd_exp_decrease_at_600
+mv ../../logs/robot3 .../../logs/3rd_exp_increase_at_600
 
-git add ../../logs/3rd_exp_decrease_at_600/*
+git add ../../logs/3rd_exp_increase_at_600/*
 
 git commit -m "adding logs from trials"
 
