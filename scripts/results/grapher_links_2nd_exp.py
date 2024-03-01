@@ -18,10 +18,24 @@ max_time = 1200
 conditions = ['NP', 'TTH_2_6', 'TTH_6_10', 'TTH_100_200']
 trials = 10
 robots = 3
+
+
+# Set these to the experiment params
 experiment = '2nd_exp'
 # "3rd_exp_decrease_at_600"
-title_extension = "- increase at 600(s)"
+title_extension = "- Increase at 600(s)- Sim"
 
+graph_path = f'src/multi_sim/scripts/results/graphs/{experiment}'
+
+
+if not os.path.exists(f"{graph_path}/pngs"):
+    os.makedirs(f"{graph_path}/pngs")
+
+if not os.path.exists(f"{graph_path}/pdfs"):
+    os.makedirs(f"{graph_path}/pdfs")
+
+
+# Here we loop through the paths to find the csv containing the results
 data = {}
 for cond in conditions:
     data[cond] = {}
@@ -35,7 +49,7 @@ for cond in conditions:
             data[cond][f"T{t}"][f"R{r}"] = df
 
 
-
+# Here we create variables for each trial/robot/condition
 for cond in conditions:
   for t in range(1, trials+1):
     for r in range(1, robots+1):
@@ -49,378 +63,179 @@ for cond in conditions:
       # Assign to variable
       exec(f"{var_name} = df") 
 
+# Set column names       
+columns = ['time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+for cond in conditions:
+  for t in range(1, trials+1):
+    for r in range(1, robots+1):
+        
+      df = data[cond][f"T{t}"][f"R{r}"]  
+      df.columns = columns
 
-graph_path = f'src/multi_sim/scripts/results/graphs/{experiment}'
-
-
-if not os.path.exists(graph_path):
-    os.makedirs(graph_path)
-
-
-# #NP
-# #trial 1, robot 1 2 3
-# NP_T1_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/NP/trial_1/metrics/20240229000118_robot1_NP_trial_1_metricspog.csv', sep=',', header=None)
-# NP_T1_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/NP/trial_1/metrics/20240229000119_robot2_NP_trial_1_metricspog.csv', sep=',', header=None)
-# NP_T1_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/NP/trial_1/metrics/20240229000119_robot3_NP_trial_1_metricspog.csv', sep=',', header=None)
-
-# #trial 2, robot 1 2 3
-# NP_T2_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/NP/trial_2/metrics/20240229002149_robot1_NP_trial_2_metricspog.csv', sep=',', header=None)
-# NP_T2_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/NP/trial_2/metrics/20240229002149_robot2_NP_trial_2_metricspog.csv', sep=',', header=None)
-# NP_T2_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/NP/trial_2/metrics/20240229002149_robot3_NP_trial_2_metricspog.csv', sep=',', header=None)
-
-# #trial 3, robot 1 2 3
-# NP_T3_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/NP/trial_3/metrics/20240229004219_robot1_NP_trial_3_metricspog.csv', sep=',', header=None)
-# NP_T3_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/NP/trial_3/metrics/20240229004219_robot2_NP_trial_3_metricspog.csv', sep=',', header=None)
-# NP_T3_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/NP/trial_3/metrics/20240229004219_robot3_NP_trial_3_metricspog.csv', sep=',', header=None)
-
-# #trial 4, robot 1 2 3
-# NP_T4_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/NP/trial_4/metrics/20240229010249_robot1_NP_trial_4_metricspog.csv', sep=',', header=None)
-# NP_T4_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/NP/trial_4/metrics/20240229010249_robot2_NP_trial_4_metricspog.csv', sep=',', header=None)
-# NP_T4_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/NP/trial_4/metrics/20240229010249_robot3_NP_trial_4_metricspog.csv', sep=',', header=None)
-
-# #trial 5, robot 1 2 3
-# NP_T5_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/NP/trial_5/metrics/20240229012319_robot1_NP_trial_5_metricspog.csv', sep=',', header=None)
-# NP_T5_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/NP/trial_5/metrics/20240229012320_robot2_NP_trial_5_metricspog.csv', sep=',', header=None)
-# NP_T5_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/NP/trial_5/metrics/20240229012320_robot3_NP_trial_5_metricspog.csv', sep=',', header=None)
-
-# #trial 6, robot 1 2 3
-# NP_T6_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/NP/trial_6/metrics/20240229014350_robot1_NP_trial_6_metricspog.csv', sep=',', header=None)
-# NP_T6_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/NP/trial_6/metrics/20240229014350_robot2_NP_trial_6_metricspog.csv', sep=',', header=None)
-# NP_T6_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/NP/trial_6/metrics/20240229014350_robot3_NP_trial_6_metricspog.csv', sep=',', header=None)
-
-# #trial 7, robot 1 2 3
-# NP_T7_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/NP/trial_7/metrics/20240229020420_robot1_NP_trial_7_metricspog.csv', sep=',', header=None)
-# NP_T7_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/NP/trial_7/metrics/20240229020420_robot2_NP_trial_7_metricspog.csv', sep=',', header=None)
-# NP_T7_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/NP/trial_7/metrics/20240229020420_robot3_NP_trial_7_metricspog.csv', sep=',', header=None)
-
-# #trial 8, robot 1 2 3
-# NP_T8_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/NP/trial_8/metrics/20240229022450_robot1_NP_trial_8_metricspog.csv', sep=',', header=None)
-# NP_T8_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/NP/trial_8/metrics/20240229022450_robot2_NP_trial_8_metricspog.csv', sep=',', header=None)
-# NP_T8_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/NP/trial_8/metrics/20240229022450_robot3_NP_trial_8_metricspog.csv', sep=',', header=None)
-
-# #trial 9, robot 1 2 3
-# NP_T9_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/NP/trial_9/metrics/20240229024520_robot1_NP_trial_9_metricspog.csv', sep=',', header=None)
-# NP_T9_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/NP/trial_9/metrics/20240229024520_robot2_NP_trial_9_metricspog.csv', sep=',', header=None)
-# NP_T9_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/NP/trial_9/metrics/20240229024521_robot3_NP_trial_9_metricspog.csv', sep=',', header=None)
-
-# #trial 10, robot 1 2 3
-# NP_T10_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/NP/trial_10/metrics/20240229030550_robot1_NP_trial_10_metricspog.csv', sep=',', header=None)
-# NP_T10_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/NP/trial_10/metrics/20240229030551_robot2_NP_trial_10_metricspog.csv', sep=',', header=None)
-# NP_T10_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/NP/trial_10/metrics/20240229030551_robot3_NP_trial_10_metricspog.csv', sep=',', header=None)
-
-# #TTH 2 6
-# #trial 1, robot 1 2 3
-# TTH_2_6_T1_R1= pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_2_6/trial_1/metrics/20240229032621_robot1_TTH_2_6_trial_1_metricspog.csv', sep=',', header=None)
-# TTH_2_6_T1_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_2_6/trial_1/metrics/20240229032621_robot2_TTH_2_6_trial_1_metricspog.csv', sep=',', header=None)
-# TTH_2_6_T1_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_2_6/trial_1/metrics/20240229032621_robot3_TTH_2_6_trial_1_metricspog.csv', sep=',', header=None)
-
-# #trial 2, robot 1 2 3
-# TTH_2_6_T2_R1= pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_2_6/trial_2/metrics/20240229034651_robot1_TTH_2_6_trial_2_metricspog.csv', sep=',', header=None)
-# TTH_2_6_T2_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_2_6/trial_2/metrics/20240229034651_robot2_TTH_2_6_trial_2_metricspog.csv', sep=',', header=None)
-# TTH_2_6_T2_R3= pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_2_6/trial_2/metrics/20240229034651_robot3_TTH_2_6_trial_2_metricspog.csv', sep=',', header=None)
-
-# #trial 3, robot 1 2 3
-# TTH_2_6_T3_R1= pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_2_6/trial_3/metrics/20240229040721_robot1_TTH_2_6_trial_3_metricspog.csv', sep=',', header=None)
-# TTH_2_6_T3_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_2_6/trial_3/metrics/20240229040721_robot2_TTH_2_6_trial_3_metricspog.csv', sep=',', header=None)
-# TTH_2_6_T3_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_2_6/trial_3/metrics/20240229040722_robot3_TTH_2_6_trial_3_metricspog.csv', sep=',', header=None)
-
-# #trial 4, robot 1 2 3
-# TTH_2_6_T4_R1= pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_2_6/trial_4/metrics/20240229042752_robot1_TTH_2_6_trial_4_metricspog.csv', sep=',', header=None)
-# TTH_2_6_T4_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_2_6/trial_4/metrics/20240229042752_robot2_TTH_2_6_trial_4_metricspog.csv', sep=',', header=None)
-# TTH_2_6_T4_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_2_6/trial_4/metrics/20240229042752_robot3_TTH_2_6_trial_4_metricspog.csv', sep=',', header=None)
-
-# #trial 5, robot 1 2 3
-# TTH_2_6_T5_R1= pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_2_6/trial_5/metrics/20240229044822_robot1_TTH_2_6_trial_5_metricspog.csv', sep=',', header=None)
-# TTH_2_6_T5_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_2_6/trial_5/metrics/20240229044822_robot2_TTH_2_6_trial_5_metricspog.csv', sep=',', header=None)
-# TTH_2_6_T5_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_2_6/trial_5/metrics/20240229044822_robot3_TTH_2_6_trial_5_metricspog.csv', sep=',', header=None)
-
-# #trial 6, robot 1 2 3
-# TTH_2_6_T6_R1= pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_2_6/trial_6/metrics/20240229050852_robot1_TTH_2_6_trial_6_metricspog.csv', sep=',', header=None)
-# TTH_2_6_T6_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_2_6/trial_6/metrics/20240229050852_robot2_TTH_2_6_trial_6_metricspog.csv', sep=',', header=None)
-# TTH_2_6_T6_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_2_6/trial_6/metrics/20240229050852_robot3_TTH_2_6_trial_6_metricspog.csv', sep=',', header=None)
-
-# #trial 7, robot 1 2 3
-# TTH_2_6_T7_R1= pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_2_6/trial_7/metrics/20240229052922_robot1_TTH_2_6_trial_7_metricspog.csv', sep=',', header=None)
-# TTH_2_6_T7_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_2_6/trial_7/metrics/20240229052922_robot2_TTH_2_6_trial_7_metricspog.csv', sep=',', header=None)
-# TTH_2_6_T7_R3= pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_2_6/trial_7/metrics/20240229052922_robot3_TTH_2_6_trial_7_metricspog.csv', sep=',', header=None)
-
-# #trial 8, robot 1 2 3
-# TTH_2_6_T8_R1= pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_2_6/trial_8/metrics/20240229054952_robot1_TTH_2_6_trial_8_metricspog.csv', sep=',', header=None)
-# TTH_2_6_T8_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_2_6/trial_8/metrics/20240229054952_robot2_TTH_2_6_trial_8_metricspog.csv', sep=',', header=None)
-# TTH_2_6_T8_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_2_6/trial_8/metrics/20240229054953_robot3_TTH_2_6_trial_8_metricspog.csv', sep=',', header=None)
-
-# #trial 9, robot 1 2 3
-# TTH_2_6_T9_R1= pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_2_6/trial_9/metrics/20240229061023_robot1_TTH_2_6_trial_9_metricspog.csv', sep=',', header=None)
-# TTH_2_6_T9_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_2_6/trial_9/metrics/20240229061023_robot2_TTH_2_6_trial_9_metricspog.csv', sep=',', header=None)
-# TTH_2_6_T9_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_2_6/trial_9/metrics/20240229061023_robot3_TTH_2_6_trial_9_metricspog.csv', sep=',', header=None)
-
-# #trial 10, robot 1 2 3
-# TTH_2_6_T10_R1= pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_2_6/trial_10/metrics/20240229063053_robot1_TTH_2_6_trial_10_metricspog.csv', sep=',', header=None)
-# TTH_2_6_T10_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_2_6/trial_10/metrics/20240229063053_robot2_TTH_2_6_trial_10_metricspog.csv', sep=',', header=None)
-# TTH_2_6_T10_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_2_6/trial_10/metrics/20240229063053_robot3_TTH_2_6_trial_10_metricspog.csv', sep=',', header=None)
-
-# # TTH 6 10 
-# # trial 1, robot 1 2 3 
-# TTH_6_10_T1_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_6_10/trial_1/metrics/20240229101625_robot1_TTH_6_10_trial_1_metricspog.csv', sep=',', header=None) 
-# TTH_6_10_T1_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_6_10/trial_1/metrics/20240229101626_robot2_TTH_6_10_trial_1_metricspog.csv', sep=',', header=None) 
-# TTH_6_10_T1_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_6_10/trial_1/metrics/20240229101626_robot3_TTH_6_10_trial_1_metricspog.csv', sep=',', header=None)
-
-# # trial 2, robot 1 2 3
-# TTH_6_10_T2_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_6_10/trial_2/metrics/20240229103655_robot1_TTH_6_10_trial_2_metricspog.csv', sep=',', header=None)
-# TTH_6_10_T2_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_6_10/trial_2/metrics/20240229103656_robot2_TTH_6_10_trial_2_metricspog.csv', sep=',', header=None)
-# TTH_6_10_T2_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_6_10/trial_2/metrics/20240229103656_robot3_TTH_6_10_trial_2_metricspog.csv', sep=',', header=None)
-
-# # trial 3, robot 1 2 3
-# TTH_6_10_T3_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_6_10/trial_3/metrics/20240229105726_robot1_TTH_6_10_trial_3_metricspog.csv', sep=',', header=None)
-# TTH_6_10_T3_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_6_10/trial_3/metrics/20240229105726_robot2_TTH_6_10_trial_3_metricspog.csv', sep=',', header=None)
-# TTH_6_10_T3_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_6_10/trial_3/metrics/20240229105726_robot3_TTH_6_10_trial_3_metricspog.csv', sep=',', header=None)
-
-# # trial 4, robot 1 2 3
-# TTH_6_10_T4_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_6_10/trial_4/metrics/20240229111756_robot1_TTH_6_10_trial_4_metricspog.csv', sep=',', header=None)
-# TTH_6_10_T4_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_6_10/trial_4/metrics/20240229111756_robot2_TTH_6_10_trial_4_metricspog.csv', sep=',', header=None)
-# TTH_6_10_T4_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_6_10/trial_4/metrics/20240229111756_robot3_TTH_6_10_trial_4_metricspog.csv', sep=',', header=None)
-
-# # trial 5, robot 1 2 3
-# TTH_6_10_T5_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_6_10/trial_5/metrics/20240229113826_robot1_TTH_6_10_trial_5_metricspog.csv', sep=',', header=None)
-# TTH_6_10_T5_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_6_10/trial_5/metrics/20240229113827_robot2_TTH_6_10_trial_5_metricspog.csv', sep=',', header=None)
-# TTH_6_10_T5_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_6_10/trial_5/metrics/20240229113827_robot3_TTH_6_10_trial_5_metricspog.csv', sep=',', header=None)
-
-# # trial 6, robot 1 2 3
-# TTH_6_10_T6_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_6_10/trial_6/metrics/20240229115857_robot1_TTH_6_10_trial_6_metricspog.csv', sep=',', header=None)
-# TTH_6_10_T6_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_6_10/trial_6/metrics/20240229115857_robot2_TTH_6_10_trial_6_metricspog.csv', sep=',', header=None)
-# TTH_6_10_T6_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_6_10/trial_6/metrics/20240229115857_robot3_TTH_6_10_trial_6_metricspog.csv', sep=',', header=None)
-
-# # trial 7, robot 1 2 3
-# TTH_6_10_T7_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_6_10/trial_7/metrics/20240229121927_robot1_TTH_6_10_trial_7_metricspog.csv', sep=',', header=None)
-# TTH_6_10_T7_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_6_10/trial_7/metrics/20240229121927_robot2_TTH_6_10_trial_7_metricspog.csv', sep=',', header=None)
-# TTH_6_10_T7_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_6_10/trial_7/metrics/20240229121927_robot3_TTH_6_10_trial_7_metricspog.csv', sep=',', header=None)
-
-# # trial 8, robot 1 2 3
-# TTH_6_10_T8_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_6_10/trial_8/metrics/20240229123957_robot1_TTH_6_10_trial_8_metricspog.csv', sep=',', header=None)
-# TTH_6_10_T8_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_6_10/trial_8/metrics/20240229123957_robot2_TTH_6_10_trial_8_metricspog.csv', sep=',', header=None)
-# TTH_6_10_T8_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_6_10/trial_8/metrics/20240229123957_robot3_TTH_6_10_trial_8_metricspog.csv', sep=',', header=None)
-
-# # trial 9, robot 1 2 3
-# TTH_6_10_T9_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_6_10/trial_9/metrics/20240229130027_robot1_TTH_6_10_trial_9_metricspog.csv', sep=',', header=None)
-# TTH_6_10_T9_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_6_10/trial_9/metrics/20240229130027_robot2_TTH_6_10_trial_9_metricspog.csv', sep=',', header=None)
-# TTH_6_10_T9_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_6_10/trial_9/metrics/20240229130028_robot3_TTH_6_10_trial_9_metricspog.csv', sep=',', header=None)
-
-# # trial 10, robot 1 2 3
-# TTH_6_10_T10_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_6_10/trial_10/metrics/20240229132057_robot1_TTH_6_10_trial_10_metricspog.csv', sep=',', header=None)
-# TTH_6_10_T10_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_6_10/trial_10/metrics/20240229132058_robot2_TTH_6_10_trial_10_metricspog.csv', sep=',', header=None)
-# TTH_6_10_T10_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_6_10/trial_10/metrics/20240229132058_robot3_TTH_6_10_trial_10_metricspog.csv', sep=',', header=None)
-
-# #TTH 100 200
-# #trial 1, robot 1 2 3
-# TTH_100_200_T1_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_100_200/trial_1/metrics/20240229065123_robot1_TTH_100_200_trial_1_metricspog.csv', sep=',', header=None)
-# TTH_100_200_T1_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_100_200/trial_1/metrics/20240229065123_robot2_TTH_100_200_trial_1_metricspog.csv', sep=',', header=None)
-# TTH_100_200_T1_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_100_200/trial_1/metrics/20240229065123_robot3_TTH_100_200_trial_1_metricspog.csv', sep=',', header=None)
-
-# #trial 2, robot 1 2 3
-# TTH_100_200_T2_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_100_200/trial_2/metrics/20240229071153_robot1_TTH_100_200_trial_2_metricspog.csv', sep=',', header=None)
-# TTH_100_200_T2_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_100_200/trial_2/metrics/20240229071153_robot2_TTH_100_200_trial_2_metricspog.csv', sep=',', header=None)
-# TTH_100_200_T2_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_100_200/trial_2/metrics/20240229071154_robot3_TTH_100_200_trial_2_metricspog.csv', sep=',', header=None)
-
-# # trial 3, robot 1 2 3
-# TTH_100_200_T3_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_100_200/trial_3/metrics/20240229073224_robot1_TTH_100_200_trial_3_metricspog.csv', sep=',', header=None)
-# TTH_100_200_T3_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_100_200/trial_3/metrics/20240229073224_robot2_TTH_100_200_trial_3_metricspog.csv', sep=',', header=None)
-# TTH_100_200_T3_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_100_200/trial_3/metrics/20240229073224_robot3_TTH_100_200_trial_3_metricspog.csv', sep=',', header=None)
-
-# # trial 4, robot 1 2 3
-# TTH_100_200_T4_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_100_200/trial_4/metrics/20240229075254_robot1_TTH_100_200_trial_4_metricspog.csv', sep=',', header=None)
-# TTH_100_200_T4_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_100_200/trial_4/metrics/20240229075254_robot2_TTH_100_200_trial_4_metricspog.csv', sep=',', header=None)
-# TTH_100_200_T4_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_100_200/trial_4/metrics/20240229075254_robot3_TTH_100_200_trial_4_metricspog.csv', sep=',', header=None)
-
-# # trial 5, robot 1 2 3
-# TTH_100_200_T5_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_100_200/trial_5/metrics/20240229081324_robot1_TTH_100_200_trial_5_metricspog.csv', sep=',', header=None)
-# TTH_100_200_T5_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_100_200/trial_5/metrics/20240229081324_robot2_TTH_100_200_trial_5_metricspog.csv', sep=',', header=None)
-# TTH_100_200_T5_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_100_200/trial_5/metrics/20240229081324_robot3_TTH_100_200_trial_5_metricspog.csv', sep=',', header=None)
-
-# # trial 6, robot 1 2 3
-# TTH_100_200_T6_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_100_200/trial_6/metrics/20240229083354_robot1_TTH_100_200_trial_6_metricspog.csv', sep=',', header=None)
-# TTH_100_200_T6_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_100_200/trial_6/metrics/20240229083354_robot2_TTH_100_200_trial_6_metricspog.csv', sep=',', header=None)
-# TTH_100_200_T6_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_100_200/trial_6/metrics/20240229083354_robot3_TTH_100_200_trial_6_metricspog.csv', sep=',', header=None)
-
-# # trial 7, robot 1 2 3
-# TTH_100_200_T7_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_100_200/trial_7/metrics/20240229085424_robot1_TTH_100_200_trial_7_metricspog.csv', sep=',', header=None)
-# TTH_100_200_T7_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_100_200/trial_7/metrics/20240229085425_robot2_TTH_100_200_trial_7_metricspog.csv', sep=',', header=None)
-# TTH_100_200_T7_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_100_200/trial_7/metrics/20240229085425_robot3_TTH_100_200_trial_7_metricspog.csv', sep=',', header=None)
-
-# # trial 8, robot 1 2 3
-# TTH_100_200_T8_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_100_200/trial_8/metrics/20240229091455_robot1_TTH_100_200_trial_8_metricspog.csv', sep=',', header=None)
-# TTH_100_200_T8_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_100_200/trial_8/metrics/20240229091455_robot2_TTH_100_200_trial_8_metricspog.csv', sep=',', header=None)
-# TTH_100_200_T8_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_100_200/trial_8/metrics/20240229091455_robot3_TTH_100_200_trial_8_metricspog.csv', sep=',', header=None)
-
-# # trial 9, robot 1 2 3
-# TTH_100_200_T9_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_100_200/trial_9/metrics/20240229093525_robot1_TTH_100_200_trial_9_metricspog.csv', sep=',', header=None)
-# TTH_100_200_T9_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_100_200/trial_9/metrics/20240229093525_robot2_TTH_100_200_trial_9_metricspog.csv', sep=',', header=None)
-# TTH_100_200_T9_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_100_200/trial_9/metrics/20240229093525_robot3_TTH_100_200_trial_9_metricspog.csv', sep=',', header=None)
-
-# # trial 10, robot 1 2 3
-# TTH_100_200_T10_R1 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot1/TTH_100_200/trial_10/metrics/20240229095555_robot1_TTH_100_200_trial_10_metricspog.csv', sep=',', header=None)
-# TTH_100_200_T10_R2 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot2/TTH_100_200/trial_10/metrics/20240229095555_robot2_TTH_100_200_trial_10_metricspog.csv', sep=',', header=None)
-# TTH_100_200_T10_R3 =pd.read_csv('src/multi_sim/logs/2nd_exp/robot3/TTH_100_200/trial_10/metrics/20240229095555_robot3_TTH_100_200_trial_10_metricspog.csv', sep=',', header=None)
-
-# First job is to label columns
-TTH_2_6_T1_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_2_6_T1_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_2_6_T1_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_2_6_T2_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_2_6_T2_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_2_6_T2_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_2_6_T3_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_2_6_T3_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_2_6_T3_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_2_6_T4_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_2_6_T4_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_2_6_T4_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_2_6_T5_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_2_6_T5_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_2_6_T5_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_2_6_T6_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_2_6_T6_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_2_6_T6_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_2_6_T7_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_2_6_T7_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_2_6_T7_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_2_6_T8_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_2_6_T8_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_2_6_T8_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_2_6_T9_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_2_6_T9_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_2_6_T9_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_2_6_T10_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_2_6_T10_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_2_6_T10_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_6_10_T1_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_6_10_T1_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_6_10_T1_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_6_10_T2_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_6_10_T2_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_6_10_T2_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_6_10_T3_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_6_10_T3_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_6_10_T3_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_6_10_T4_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_6_10_T4_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_6_10_T4_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_6_10_T5_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_6_10_T5_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_6_10_T5_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_6_10_T6_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_6_10_T6_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_6_10_T6_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_6_10_T7_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_6_10_T7_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_6_10_T7_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_6_10_T8_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_6_10_T8_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_6_10_T8_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_6_10_T9_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_6_10_T9_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_6_10_T9_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_6_10_T10_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_6_10_T10_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_6_10_T10_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_100_200_T1_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_100_200_T1_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_100_200_T1_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_100_200_T2_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_100_200_T2_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_100_200_T2_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_100_200_T3_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_100_200_T3_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_100_200_T3_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_100_200_T4_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_100_200_T4_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_100_200_T4_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_100_200_T5_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_100_200_T5_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_100_200_T5_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_100_200_T6_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_100_200_T6_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_100_200_T6_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_100_200_T7_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_100_200_T7_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_100_200_T7_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_100_200_T8_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_100_200_T8_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_100_200_T8_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_100_200_T9_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_100_200_T9_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_100_200_T9_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-TTH_100_200_T10_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_100_200_T10_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-TTH_100_200_T10_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-NP_T1_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-NP_T1_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-NP_T1_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-NP_T2_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-NP_T2_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-NP_T2_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-NP_T3_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-NP_T3_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-NP_T3_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-NP_T4_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-NP_T4_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-NP_T4_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-NP_T5_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-NP_T5_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-NP_T5_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-NP_T6_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-NP_T6_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-NP_T6_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-NP_T7_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-NP_T7_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-NP_T7_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-NP_T8_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-NP_T8_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-NP_T8_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-NP_T9_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-NP_T9_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-NP_T9_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-
-NP_T10_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-NP_T10_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
-NP_T10_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+
+
+
+# # First job is to label columns
+# TTH_2_6_T1_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_2_6_T1_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_2_6_T1_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_2_6_T2_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_2_6_T2_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_2_6_T2_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_2_6_T3_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_2_6_T3_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_2_6_T3_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_2_6_T4_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_2_6_T4_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_2_6_T4_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_2_6_T5_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_2_6_T5_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_2_6_T5_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_2_6_T6_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_2_6_T6_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_2_6_T6_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_2_6_T7_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_2_6_T7_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_2_6_T7_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_2_6_T8_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_2_6_T8_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_2_6_T8_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_2_6_T9_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_2_6_T9_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_2_6_T9_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_2_6_T10_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_2_6_T10_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_2_6_T10_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_6_10_T1_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_6_10_T1_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_6_10_T1_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_6_10_T2_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_6_10_T2_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_6_10_T2_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_6_10_T3_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_6_10_T3_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_6_10_T3_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_6_10_T4_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_6_10_T4_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_6_10_T4_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_6_10_T5_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_6_10_T5_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_6_10_T5_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_6_10_T6_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_6_10_T6_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_6_10_T6_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_6_10_T7_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_6_10_T7_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_6_10_T7_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_6_10_T8_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_6_10_T8_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_6_10_T8_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_6_10_T9_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_6_10_T9_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_6_10_T9_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_6_10_T10_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_6_10_T10_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_6_10_T10_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_100_200_T1_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_100_200_T1_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_100_200_T1_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_100_200_T2_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_100_200_T2_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_100_200_T2_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_100_200_T3_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_100_200_T3_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_100_200_T3_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_100_200_T4_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_100_200_T4_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_100_200_T4_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_100_200_T5_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_100_200_T5_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_100_200_T5_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_100_200_T6_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_100_200_T6_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_100_200_T6_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_100_200_T7_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_100_200_T7_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_100_200_T7_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_100_200_T8_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_100_200_T8_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_100_200_T8_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_100_200_T9_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_100_200_T9_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_100_200_T9_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# TTH_100_200_T10_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_100_200_T10_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# TTH_100_200_T10_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# NP_T1_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# NP_T1_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# NP_T1_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# NP_T2_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# NP_T2_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# NP_T2_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# NP_T3_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# NP_T3_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# NP_T3_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# NP_T4_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# NP_T4_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# NP_T4_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# NP_T5_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# NP_T5_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# NP_T5_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# NP_T6_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# NP_T6_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# NP_T6_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# NP_T7_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# NP_T7_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# NP_T7_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# NP_T8_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# NP_T8_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# NP_T8_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# NP_T9_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# NP_T9_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# NP_T9_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+
+# NP_T10_R1.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# NP_T10_R2.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
+# NP_T10_R3.columns = [ 'time', 'state', 'u_rand_num', 'activation', 'cumul_tags']
 
 
 
@@ -943,8 +758,8 @@ plt.xlabel('Time (s)')
 plt.ylabel('Activity Level')
 
 
-plt.savefig(f'{graph_path}/{conditions[1]}_AL.png')
-plt.savefig(f'{graph_path}/{conditions[1]}_AL.pdf')
+plt.savefig(f'{graph_path}/pngs/{conditions[1]}_AL.png')
+plt.savefig(f'{graph_path}/pdfs/{conditions[1]}_AL.pdf')
 plt.close()
 
 
@@ -971,8 +786,8 @@ plt.axhline(y=50, linestyle='--', linewidth=0.8, c='hotpink')
 plt.xlabel('Time (s)')
 plt.ylabel('Activity Level')
 
-plt.savefig(f'{graph_path}/{conditions[2]}_AL.png')
-plt.savefig(f'{graph_path}/{conditions[2]}_AL.pdf')
+plt.savefig(f'{graph_path}/pngs/{conditions[2]}_AL.png')
+plt.savefig(f'{graph_path}/pdfs/{conditions[2]}_AL.pdf')
 plt.close()
 
 
@@ -998,8 +813,8 @@ plt.axhline(y=50, linestyle='--', linewidth=0.8, c='hotpink')
 plt.xlabel('Time (s)')
 plt.ylabel('Activity Level')
 
-plt.savefig(f'{graph_path}/{conditions[3]}_AL.png')
-plt.savefig(f'{graph_path}/{conditions[3]}_AL.pdf')
+plt.savefig(f'{graph_path}/pngs/{conditions[3]}_AL.png')
+plt.savefig(f'{graph_path}/pdfs/{conditions[3]}_AL.pdf')
 plt.close()
 
 
@@ -1022,8 +837,8 @@ plt.axhline(y=50, linestyle='--', linewidth=0.8, c='hotpink')
 plt.xlabel('Time (s)')
 plt.ylabel('Activity Level')
 
-plt.savefig(f'{graph_path}/TTH_ALL_AL.png')
-plt.savefig(f'{graph_path}/TTH_ALL._AL.pdf')
+plt.savefig(f'{graph_path}/pngs/TTH_ALL_AL.png')
+plt.savefig(f'{graph_path}/pdfs/TTH_ALL._AL.pdf')
 plt.close()
 
 # total tags all conditions all trials
@@ -1063,6 +878,6 @@ bplot.set_xlabel('Experiment Condition')
 bplot.set_ylabel('Final Tag Count')
 bplot.set_title(f'Final Tag Count {title_extension}')
 
-plt.savefig(f'{graph_path}/Tags_over_time.pdf')
-plt.savefig(f'{graph_path}/Tags_over_time.png')
+plt.savefig(f'{graph_path}/pngs/Tags_over_time.png')
+plt.savefig(f'{graph_path}/pdfs/Tags_over_time.pdf')
 plt.close()
