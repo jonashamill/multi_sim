@@ -1,124 +1,136 @@
 #!/bin/bash
 
-trialDuration=1200
-noTrials=10
+# trialDuration=1200
+# noTrials=10
 
-for i in $(seq 1 $noTrials);
-do
+# for i in $(seq 1 $noTrials);
+# do
 
-    echo $i
+#     echo $i
 
 
-    roslaunch multi_sim 1cs_sim.launch &
+#     roslaunch multi_sim 1cs_sim.launch &
     
-    pid=$!
+#     pid=$!
 
-    sleep 10
+#     sleep 10
 
-    rosparam set usePlasticity false 
-    rosparam set trialNumber $i
-    rosparam set timeThresholdLow 1
-    rosparam set timeThresholdHigh 1
-
-
-    sleep $trialDuration
-
-    kill $pid
-
-    sleep 20
-
-done
-
-for i in $(seq 1 $noTrials);
-do
-
-    echo $i
+#     rosparam set usePlasticity false 
+#     rosparam set trialNumber $i
+#     rosparam set timeThresholdLow 1
+#     rosparam set timeThresholdHigh 1
 
 
-    roslaunch multi_sim 1cs_sim.launch &
+#     sleep $trialDuration
+
+#     kill $pid
+
+#     sleep 20
+
+# done
+
+# for i in $(seq 1 $noTrials);
+# do
+
+#     echo $i
+
+
+#     roslaunch multi_sim 1cs_sim.launch &
     
-    pid=$!
+#     pid=$!
 
-    sleep 10
+#     sleep 10
 
-    rosparam set usePlasticity true 
-    rosparam set trialNumber $i 
-    rosparam set timeThresholdLow 2
-    rosparam set timeThresholdHigh 6
+#     rosparam set usePlasticity true 
+#     rosparam set trialNumber $i 
+#     rosparam set timeThresholdLow 2
+#     rosparam set timeThresholdHigh 6
 
-    sleep $trialDuration
+#     sleep $trialDuration
 
-    kill $pid
+#     kill $pid
 
-    sleep 20
+#     sleep 20
 
-done
-
-
-for i in $(seq 1 $noTrials);
-do
-
-    echo $i
+# done
 
 
-    roslaunch multi_sim 1cs_sim.launch &
+# for i in $(seq 1 $noTrials);
+# do
+
+#     echo $i
+
+
+#     roslaunch multi_sim 1cs_sim.launch &
     
-    pid=$!
+#     pid=$!
 
-    sleep 10
+#     sleep 10
 
-    rosparam set usePlasticity true 
-    rosparam set trialNumber $i
-    rosparam set timeThresholdLow 100
-    rosparam set timeThresholdHigh 200
-
-
-    sleep $trialDuration
-
-    kill $pid
-
-    sleep 20
-
-done
+#     rosparam set usePlasticity true 
+#     rosparam set trialNumber $i
+#     rosparam set timeThresholdLow 100
+#     rosparam set timeThresholdHigh 200
 
 
-for i in $(seq 1 $noTrials);
-do
+#     sleep $trialDuration
 
-    echo $i
+#     kill $pid
+
+#     sleep 20
+
+# done
 
 
-    roslaunch multi_sim 1cs_sim.launch &
+# for i in $(seq 1 $noTrials);
+# do
+
+#     echo $i
+
+
+#     roslaunch multi_sim 1cs_sim.launch &
     
-    pid=$!
+#     pid=$!
 
-    sleep 10
+#     sleep 10
 
-    rosparam set usePlasticity true 
-    rosparam set trialNumber $i
-    rosparam set timeThresholdLow 6
-    rosparam set timeThresholdHigh 10
+#     rosparam set usePlasticity true 
+#     rosparam set trialNumber $i
+#     rosparam set timeThresholdLow 6
+#     rosparam set timeThresholdHigh 10
 
 
-    sleep $trialDuration
+#     sleep $trialDuration
 
-    kill $pid
+#     kill $pid
 
-    sleep 20
+#     sleep 20
 
-done
+# done
 
-mkdir -p ../../logs/3rd_exp_increase_at_600
+experiment="4th_exp_1_tag_buffer_increase_at_600"
 
-mv ../../logs/robot1 ../../logs/3rd_exp_increase_at_600
+roscd logs_n_results
 
-mv ../../logs/robot2 .../../logs/3rd_exp_increase_at_600
+mkdir -p logs/$experiment
 
-mv ../../logs/robot3 .../../logs/3rd_exp_increase_at_600
+roscd multi_sim
 
-git add ../../logs/3rd_exp_increase_at_600/*
+mv ../../logs/robot1 logs_n_results/logs/$experiment
 
-git commit -m "adding logs from trials"
+roscd multi_sim
+
+mv logs/robot2 logs_n_results/logs/$experiment
+
+roscd multi_sim
+
+mv ../../logs/robot3 logs_n_results/logs/$experiment
+
+roscd logs_n_results
+
+git add *
+
+git commit -m "adding logs from $experiment trials"
 
 # for i in $(seq 1 $noTrials);
 # do
