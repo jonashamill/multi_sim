@@ -110,27 +110,22 @@
 
 experiment="4th_exp_1_tag_buffer_increase_at_600"
 
-roscd logs_n_results
+mkdir -p ../logs_n_results/logs/$experiment
 
-mkdir -p logs/$experiment
+mv ../../logs/robot1 ../../../logs_n_results/logs/$experiment
 
-roscd multi_sim
+mv ../../logs/robot2 ../../../logs_n_results/logs/$experiment
 
-mv .logs/robot1 logs_n_results/logs/$experiment
+mv ../../logs/robot3 ../../../logs_n_results/logs/$experiment
 
-roscd multi_sim
-
-mv logs/robot2 logs_n_results/logs/$experiment
-
-roscd multi_sim
-
-mv logs/robot3 logs_n_results/logs/$experiment
-
-roscd logs_n_results
+cd ../../logs_n_results/
 
 git add *
 
 git commit -m "adding logs from $experiment trials"
+
+git push
+
 
 # for i in $(seq 1 $noTrials);
 # do
