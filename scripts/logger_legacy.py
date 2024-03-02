@@ -209,7 +209,7 @@ def getTag(msg):
 
             if checkDuplicate(idListBuffer, currentMarker) or currentMarker > 19:
             
-                if int(finish) > 600:
+                if int(finish) < 600:
 
                     if len(timeList) > 0:
                         rospy.loginfo('timelist: ' + str(timeList))
@@ -242,7 +242,7 @@ def getTag(msg):
 
                     idQTY += 1
 
-                    if len(idListBuffer) > 5: #this will be replaced with time
+                    if len(idListBuffer) > 1: #this will be replaced with time
                         idList.extend(idListBuffer)
                         idListBuffer =[]
                     
