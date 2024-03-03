@@ -5,10 +5,22 @@ import sys
 from PIL import Image, ImageOps
 
 
+# This aplication will generate tags between a user specificied range 
+# as individual gazebo compatible models. It will create a folder named 'models'
+# in which all the models are saved. To use, either 'create a path' in Gazebo to models
+# folder, or move the files from inside the models folder to yours existing models folder
+# in .gazebo
+
+
 # To run, type 'rosrun multi_sim generate_models.py lower upper' into terminal, 
 # where 'lower' and 'upper' are replaced with the lowest tag id number and upper
 # the highest tag id you want
+# Depends on alvar ros package
 
+
+
+# 1.0 will create a square 50x50cm
+scale = 0.2
 
 
 
@@ -19,12 +31,12 @@ if len(sys.argv) != 3:
 try:
   tag_lower = int(sys.argv[1])  
   tag_upper = int(sys.argv[2])
+  tag_upper += 1
+
 except ValueError:
   print("Invalid input. Must be integers.")
   sys.exit()
 
-# tag_lower = 0
-tag_upper+=1
 
 
 def main():
@@ -33,17 +45,13 @@ def main():
 
         marker_folder = "models/marker" + str(i)
 
-        # marker =  os.path.join(images_folder, "Marker{i}.png")
-
 
         if not os.path.exists(marker_folder):
             os.makedirs(marker_folder)
 
         textures_folder = marker_folder + "/materials/textures"
 
-       
-
-        # os.system("mv {0} {1}".format(marker, textures_folder))
+      
 
         if not os.path.exists(textures_folder):
             os.makedirs(textures_folder)    
@@ -81,10 +89,10 @@ def generate_tags(folder, i):
 
     image = Image.open(new_name)
 
-        # Add 10px border
+    # Add 40px border
     bordered = ImageOps.expand(image, border=40, fill='white')
 
-        # Overwrite original image
+    # Overwrite original image
     bordered.save(new_name)
 
     os.system("mv {0} {1}".format(new_name, folder))
@@ -99,7 +107,7 @@ def create_sdf_content(i):
         <geometry>
           <mesh>
             <uri>model://marker{i}/meshes/Marker{i}.dae</uri>
-            <scale>0.2 0.2 0.2</scale></mesh>
+            <scale>{scale} {scale} {scale}</scale></mesh>
           </geometry>
       </visual>
     </link>
@@ -119,7 +127,7 @@ def create_config_content(i):
   </author>
 
   <description>
-    A model of AR marker
+    An AR tag marker model
   </description>
 
 </model>"""
@@ -127,12 +135,6 @@ def create_config_content(i):
 def create_dae_content(i):
     return f"""<?xml version="1.0" ?><COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
   <asset>
-    <contributor>
-      <author>Blender User</author>
-      <authoring_tool>Blender 2.74.0 commit date:2015-03-31, commit time:13:39, hash:000dfc0</authoring_tool>
-    </contributor>
-    <created>2015-04-05T02:03:25</created>
-    <modified>2015-04-05T02:03:25</modified>
     <unit name="meter" meter="1"/>
     <up_axis>Z_UP</up_axis>
   </asset>
