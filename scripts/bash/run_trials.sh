@@ -2,6 +2,8 @@
 
 trialDuration=1200
 noTrials=10
+experiment="6th_exp_1_tag_buffer_high_tags"
+
 
 for i in $(seq 1 $noTrials);
 do
@@ -134,7 +136,6 @@ do
 
 done
 
-experiment="5th_exp_1_tag_buffer_decrease_at_600"
 
 mkdir -p ../logs_n_results/logs/$experiment
 
