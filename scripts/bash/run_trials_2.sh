@@ -1,6 +1,6 @@
 #!/bin/bash
 
-trialDuration=12
+trialDuration=1200
 noTrials=10
 experiment="7th_exp_new_behaviour"
 
