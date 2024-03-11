@@ -28,13 +28,13 @@ hostName = hostName.replace('/','')
 #start time for comparison
 start_time = time.time()
 
-timeThresholdLow = rospy.get_param("/timeThresholdLow")
-timeThresholdHigh = rospy.get_param("/timeThresholdHigh")
+neoThreshold = rospy.get_param("/neo_threshold_init")
+# timeThresholdHigh = rospy.get_param("/timeThresholdHigh")
 trial = rospy.get_param("/trialNumber")
-usePlasticity = rospy.get_param("/usePlasticity")
+usePlasticity = rospy.get_param("/use_plasticity")
 
 
-print (timeThresholdLow)
+print (neoThreshold)
 rospy.loginfo("trial" + str(trial))
 
 #getting csv paths for both the logs
@@ -42,9 +42,11 @@ rp = rospkg.RosPack()
 package_path = rp.get_path('multi_sim')
 
 if usePlasticity:
-    condition = "TTH_" + str(timeThresholdLow) + "_" + str(timeThresholdHigh)
+    condition = "P_" + str(neoThreshold)
+elif neoThreshold == 0:
+    condition = "N-"
 else:
-    condition = "NP"
+    condition = "N+"
 
 folder_path = (package_path + "/logs/" + hostName + "/" + condition + "/trial_" + str(trial))
 
@@ -107,6 +109,6 @@ if __name__ == "__main__":
 
     battery_subscriber = rospy.Subscriber(robot_ns + "firmware/battery_averaged",Float32,battery_callback)
 
-    metrics_subscriber = rospy.Subscriber(robot_ns + "metricsTopic", String, metrics_callback)
+    metrics_subscriber = rospy.Subscriber(robot_ns + "metrics_topic", String, metrics_callback)
 
     rospy.spin()

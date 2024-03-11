@@ -65,7 +65,7 @@
   <!-- <node name="rviz2" pkg="rviz" type="rviz" args="-d $(find multi_sim)/config/rviz/robot2_rviz.rviz" /> -->
   <!-- <node name="rviz3" pkg="rviz" type="rviz" args="-d $(find multi_sim)/config/rviz/robot3_rviz.rviz" /> -->
 
-  <!-- <node name="rviz3bots" pkg="rviz" type="rviz" args="-d $(find multi_sim)/config/rviz/rviz_3_bots.rviz" /> -->
+  <node name="rviz3bots" pkg="rviz" type="rviz" args="-d $(find multi_sim)/config/rviz/rviz_3_bots.rviz" />
 
   <node name="run_trials" pkg="multi_sim" type="run_trials.py"/>
 
