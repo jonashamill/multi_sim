@@ -1,8 +1,8 @@
 #!/bin/bash
 
 trialDuration=1200
-noTrials=10
-experiment="7th_exp_new_behaviour"
+noTrials=5
+experiment="8th_exp_new_paths"
 
 
 for i in $(seq 1 $noTrials);

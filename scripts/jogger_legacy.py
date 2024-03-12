@@ -10,6 +10,8 @@ import csv
 import socket
 import os
 
+rospy.init_node("jogger") # init node (pose logger)
+
 #getting date for saving
 current_date = datetime.date.today()
 formatted_date = current_date.strftime("%Y-%m-%d")
@@ -26,7 +28,7 @@ hostName = robot_ns
 hostName = hostName.replace('/','')
 
 #start time for comparison
-start_time = time.time()
+start_time = int(rospy.get_time())
 
 neoThreshold = rospy.get_param("/neo_threshold_init")
 # timeThresholdHigh = rospy.get_param("/timeThresholdHigh")
@@ -67,7 +69,8 @@ metrics_path = (folder_path + "/metrics/" + timenow + "_" + hostName + "_" + con
 def vel_callback(msg):
     lin_x = msg.linear.x
     ang_z = msg.angular.z
-    timestamp = time.time() - start_time
+    finish = int(rospy.get_time())
+    timestamp = (finish - start_time)
     data = [lin_x,ang_z,timestamp]
     save_to_csv(vel_path,data)
 
@@ -78,12 +81,14 @@ def pose_callback(msg):
     oy = msg.pose.pose.orientation.y
     oz = msg.pose.pose.orientation.z
     ow = msg.pose.pose.orientation.w
-    timestamp = time.time() - start_time
+    finish = int(rospy.get_time())
+    timestamp = (finish - start_time)
     data = [x,y,ox,oy,oz,ow,timestamp]
     save_to_csv(pose_path,data)
 
 def battery_callback(msg):
-    timestamp = time.time() - start_time
+    finish = int(rospy.get_time())
+    timestamp = (finish - start_time)
     data = [msg.data, timestamp]
     save_to_csv(battery_path,data)
 
@@ -97,7 +102,7 @@ def save_to_csv(csv_path,data):
         writer.writerow(data)
 
 if __name__ == "__main__":
-    rospy.init_node("jogger") # init node (pose logger)
+    
 
     # robot_ns = rospy.get_namespace()
 
