@@ -53,7 +53,7 @@ class Patroller():
         # preprocessing --------------------------------------------------
 
         robot_ns = rospy.get_namespace()
-        robot_ns = robot_ns + "patroller" + robot_ns
+        # robot_ns = robot_ns + "patroller" + robot_ns
 
         # gets csv file path
         rp = rospkg.RosPack()
@@ -108,7 +108,7 @@ class Patroller():
         )
 
         # Create a Twist publisher to send velocity commands to the robot
-        self.vel_pub = rospy.Publisher(robot_ns + 'cmd_vel', Twist, queue_size=10)
+        self.vel_pub = rospy.Publisher(robot_ns + 'controllers/diff_drive/cmd_vel', Twist, queue_size=10)
 
 
         self.patrol_count = 0
@@ -122,9 +122,9 @@ if __name__ == '__main__':
     robot_ns = rospy.get_namespace()
     robot_ns_path = robot_ns + "patroller" + robot_ns
 
-    route = rospy.get_param(robot_ns_path + 'route')
+    route = rospy.get_param(robot_ns + 'route')
 
-    patrols = rospy.get_param(robot_ns_path + 'patrols')
+    patrols = rospy.get_param(robot_ns + 'patrols')
 
     rp = rospkg.RosPack()
     package_path = rp.get_path('multi_sim')

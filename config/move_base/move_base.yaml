@@ -17,5 +17,6 @@ base_local_planner: base_local_planner/TrajectoryPlannerROS
 # Recovery behavior parameters
 recovery_behavior_enabled: true
 clearing_rotation_allowed: true
-conservative_reset_dist: 0.02
+conservative_reset_dist: 3.0
 aggressive_reset_dist: 5
+recovery_patience: 100

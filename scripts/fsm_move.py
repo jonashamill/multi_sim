@@ -20,7 +20,11 @@ def read_waypoints(file_path):
             waypoints.append([(x, y, z), quaternion])
     return waypoints
 
-def main():
+
+
+if __name__ == '__main__':
+    rospy.init_node('patroller')
+
     robot_ns = rospy.get_namespace()
 
     route = rospy.get_param(robot_ns + 'route')
@@ -67,15 +71,4 @@ def main():
         rospy.loginfo("State machine transitioning, robot_ns: {}, waypoint: {}. {} moving to waypoint {}".format(robot_ns, i, outcome, (i+1) % len(waypoints)))
 
 
-
-
-if __name__ == '__main__':
-    
-    try:
-        rospy.init_node('patroller')
-
-        main()
-        rospy.spin()
-
-    except rospy.ROSInterruptException:
-        rospy.loginfo("Sim Finished")
+        

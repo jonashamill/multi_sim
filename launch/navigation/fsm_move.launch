@@ -2,13 +2,13 @@
 <launch>
 
     <arg name="robot_ns" default="robot1"/>
-
+    <rosparam command="load" file="$(find plastic_navigation)/config/patparams.yaml" />
 
     <group ns="$(arg robot_ns)">
 
-        <node pkg="leo_navigation" type="fsm_move.py" name="patrol" output="screen"> 
+        <node pkg="multi_sim" type="fsm_move.py" name="patrol" output="screen"> 
 
-            <rosparam command="load" file="$(find leo_navigation)/config/patparams.yaml" />
+            
 
         </node>
 

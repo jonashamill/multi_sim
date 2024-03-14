@@ -1,8 +1,8 @@
 #!/bin/bash
 
-trialDuration=1200
-noTrials=5
-experiment="8th_exp_new_paths"
+trialDuration=2400
+noTrials=10
+experiment="10th_exp_changing_env"
 
 
 for i in $(seq 1 $noTrials);
