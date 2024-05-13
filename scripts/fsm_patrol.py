@@ -15,18 +15,31 @@ from actionlib_msgs.msg import GoalStatusArray
 from tf.transformations import quaternion_from_euler
 import pandas as pd
 
-
-
-
 def read_waypoints(file_path):
     waypoints = []
     with open(file_path, 'r') as file:
         for line in file:
-            x, y, z, yaw_deg = map(float, line.strip().split(','))
-            yaw_rad = math.radians(yaw_deg)
-            quaternion = tf.transformations.quaternion_from_euler(0, 0, yaw_rad)
-            waypoints.append([(x, y, z), quaternion])
+            line = line.strip()
+            if line:  # Skip empty lines
+                try:
+                    x, y, z, yaw_deg = map(float, line.split(','))
+                    yaw_rad = math.radians(yaw_deg)
+                    quaternion = tf.transformations.quaternion_from_euler(0, 0, yaw_rad)
+                    waypoints.append([(x, y, z), quaternion])
+                except ValueError:
+                    rospy.logwarn(f"Skipping invalid line: {line}")
     return waypoints
+
+
+# def read_waypoints(file_path):
+#     waypoints = []
+#     with open(file_path, 'r') as file:
+#         for line in file:
+#             x, y, z, yaw_deg = map(float, line.strip().split(','))
+#             yaw_rad = math.radians(yaw_deg)
+#             quaternion = tf.transformations.quaternion_from_euler(0, 0, yaw_rad)
+#             waypoints.append([(x, y, z), quaternion])
+#     return waypoints
 
 
 def getTime():
