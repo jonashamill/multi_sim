@@ -42,3 +42,4 @@ TrajectoryPlannerROS:
 
   # Global plan
   prune_plan: true
+ 
