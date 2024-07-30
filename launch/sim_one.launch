@@ -19,7 +19,10 @@
 
     <param name="use_sim_time" value="true"/>
 
-    <arg name="map_file" default="$(find multi_sim)/maps/1cs_full_sim.yaml"/>
+
+
+    <!-- Load map for AMCL -->
+    <arg name="map_file" default="$(find multi_sim)/maps/empty_map.yaml"/>
 
 
     <group ns="$(arg robot_ns)">

@@ -1,16 +1,16 @@
 # http://wiki.ros.org/base_local_planner#Parameters
 TrajectoryPlannerROS:
-  holonomic_robot: true
+  holonomic_robot: false
 
   # Robot configuration
   acc_lim_x: 4.0
-  acc_lim_theta: 2.0
+  acc_lim_theta: 4.0
   max_vel_x: 4.0
-  min_vel_x: 0.1
-  max_vel_theta: 2
-  min_vel_theta: -0.2
-  min_in_place_vel_theta: 1
-  escape_vel: -1.1
+  min_vel_x: -4.0
+  max_vel_theta: 4.0
+  min_vel_theta: -4.0
+  min_in_place_vel_theta: 4.0
+  escape_vel: -3.0
   # holonomic_robot: false
 
   # Goal tolerance
@@ -22,14 +22,15 @@ TrajectoryPlannerROS:
   sim_time: 3.0
   sim_granularity: 0.05
   angular_sim_granularity: 0.025
-  vx_samples: 3
-  vtheta_samples: 20
+  vx_samples: 3.0
+  vtheta_samples: 20.0
 
   # Trajectory scoring
   meter_scoring: true
-  path_distance_bias: 0.5
-  goal_distance_bias: 0.3
-  occdist_scale: 0.005
+  path_distance_bias: 32.0 #0.5
+  goal_distance_bias: 24 #0.3
+  occdist_scale: 0.5 #0.005
+  stop_time_buffer: 0.2
   heading_lookahead: 0.325
   heading_scoring: false
   heading_scoring_timestep: 0.8
@@ -42,4 +43,3 @@ TrajectoryPlannerROS:
 
   # Global plan
   prune_plan: true
- 

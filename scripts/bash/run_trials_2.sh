@@ -1,8 +1,8 @@
 #!/bin/bash
 
-trialDuration=2400
+trialDuration=1700
 noTrials=10
-experiment="10th_exp_changing_env"
+experiment="type_2_exp_1_new_map_high_resolution"
 
 
 for i in $(seq 1 $noTrials);

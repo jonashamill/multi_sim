@@ -2,11 +2,13 @@
 
   <arg name="fixed" default="false"/>
 
+  <!-- Spawn World -->
+
 
   <arg name="world_name" default="worlds/empty.world"/>
   <arg name="paused" default="false"/>
   <arg name="gui" default="true"/>
-  <arg name="debug" default="false"/>
+  <arg name="debug" default="true"/>
   <arg name="verbose" default="false"/>
 
 
@@ -17,6 +19,9 @@
     <arg name="debug" value="$(arg debug)"/>
     <arg name="verbose" value="$(arg verbose)"/>
   </include>
+
+
+  <!-- Spawn Robots -->
 
 
   <!-- First robot -->
@@ -58,6 +63,8 @@
     <arg name="initial_pose_a" value="0"/>
   </include>
 
+  
+  <!-- Launch RVIZ -->
 
   <!-- Launch rviz for visualization purposes-->
   <!-- Uncomment for individual rviz, 2D Nav Goal topics set up for each. They need the NS set -->
