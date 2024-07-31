@@ -2,7 +2,7 @@
 <launch>
 
 
-  <arg name="patroller" value="$(find multi_sim)/launch/navigation/patrolling.launch" />
+  <arg name="patroller" value="$(find plastic_navigation)/launch/run_main.launch" />
   <!-- <arg name="artagger" value="$(find patpkg)/launch/plasticpat.launch" /> -->
 
   <!-- First robot -->

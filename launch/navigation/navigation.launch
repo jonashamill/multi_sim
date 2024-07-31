@@ -11,7 +11,7 @@
         <rosparam command="load" ns="local_costmap" file="$(find multi_sim)/config/move_base/costmaps/costmap_common.yaml"/>
         <rosparam command="load" file="$(find multi_sim)/config/move_base/costmaps/local_costmap.yaml"/>
         <rosparam command="load" file="$(find multi_sim)/config/move_base/costmaps/global_costmap.yaml"/>
-        <rosparam command="load" file="$(find multi_sim)/config/move_base/planners/local_planner.yaml"/>
+        <rosparam command="load" file="$(find multi_sim)/config/move_base/planners/dwa_local_planner.yaml"/>
         <rosparam command="load" file="$(find multi_sim)/config/move_base/planners/global_planner.yaml"/>
 
         <param name="global_costmap/robot_base_frame" value="$(arg robot_ns)/base_footprint"/>

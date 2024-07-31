@@ -8,11 +8,12 @@ shutdown_costmaps: false
 oscillation_timeout: 100.0
 oscillation_distance: 0.5
 planner_frequency: 0.0
-max_planning_retries: 5
+max_planning_retries: 100
 
 # Planner plugins
 base_global_planner: global_planner/GlobalPlanner
-base_local_planner: base_local_planner/TrajectoryPlannerROS
+# base_local_planner: base_local_planner/TrajectoryPlannerROS
+base_local_planner: dwa_local_planner/DWAPlannerROS
 
 # Recovery behavior parameters
 recovery_behavior_enabled: true
